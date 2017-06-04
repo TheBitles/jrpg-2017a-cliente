@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>cliente</name>
+	<name>jrpg-2017a-cliente</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -10,15 +10,21 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
 	<linkedResources>
 		<link>
 			<name>Server</name>
 			<type>2</type>
-			<location>/home/lucas/software/eclipse/C::/Users/leodr/Desktop/jrpg/servidor/src</location>
+			<location>C:/home/lucas/software/eclipse/C::/Users/leodr/Desktop/jrpg/servidor/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

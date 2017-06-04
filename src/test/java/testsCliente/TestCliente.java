@@ -2,8 +2,6 @@ package testsCliente;
 
 import java.io.IOException;
 
-import javax.swing.JTextArea;
-
 import org.junit.Assert;
 import org.junit.Test;
 

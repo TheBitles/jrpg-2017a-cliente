@@ -1,5 +1,6 @@
 package frames;
 
+import cliente.Cliente;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -9,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import cliente.*;
 import mensajeria.Comando;
 
 import javax.swing.JTextField;
