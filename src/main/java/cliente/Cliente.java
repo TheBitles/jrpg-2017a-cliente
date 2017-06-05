@@ -60,7 +60,6 @@ public class Cliente extends Thread {
 			puerto = sc.nextInt();
 			sc.close();
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo de configuracion config.txt");
 			e.printStackTrace();
 		}
 
@@ -70,8 +69,6 @@ public class Cliente extends Thread {
 			entrada = new ObjectInputStream(cliente.getInputStream());
 			salida = new ObjectOutputStream(cliente.getOutputStream());
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Fallo al iniciar la aplicacion. Revise la conexion con el servidor.");
-			System.exit(1);
 			e.printStackTrace();
 		}
 	}
