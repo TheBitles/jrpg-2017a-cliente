@@ -24,7 +24,7 @@ public class TestCliente {
 
 		Cliente cliente = new Cliente();
 
-		// Pasado este punto la conexi�n entre el cliente y el servidor resulto exitosa
+		// Pasado este punto la conexión entre el cliente y el servidor resulto exitosa
 		Assert.assertEquals(1, 1);
 
 		try {

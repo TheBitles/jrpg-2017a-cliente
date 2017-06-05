@@ -32,11 +32,11 @@ public class Pantalla {
 
 	public Pantalla(final String NOMBRE, final int ANCHO, final int ALTO, final Cliente cliente) {
 		pantalla = new JFrame(NOMBRE);
-		
+
 		pantalla.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
 			new ImageIcon(MenuJugar.class.getResource("/cursor.png")).getImage(),
 			new Point(0,0),"custom cursor"));
-		
+
 		pantalla.setSize(ANCHO, ALTO);
 		pantalla.setResizable(false);
 		pantalla.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -52,7 +52,7 @@ public class Pantalla {
 					cliente.getSocket().close();
 					System.exit(0);
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "Fallo al intentar cerrar la aplicación.");
+					JOptionPane.showMessageDialog(null, "Fallo al intentar cerrar la aplicaciÃ³n.");
 					System.exit(1);
 					e.printStackTrace();
 				}
@@ -79,11 +79,11 @@ public class Pantalla {
 	public JFrame getFrame() {
 		return pantalla;
 	}
-	
+
 	public void mostrar() {
 		pantalla.setVisible(true);
 	}
-	
+
 	public static void centerString(Graphics g, Rectangle r, String s) {
 	    FontRenderContext frc = new FontRenderContext(null, true, true);
 
@@ -95,7 +95,7 @@ public class Pantalla {
 
 	    int a = (r.width / 2) - (rWidth / 2) - rX;
 	    int b = (r.height / 2) - (rHeight / 2) - rY;
-	    
+
 	    g.drawString(s, r.x + a, r.y + b);
 	}
 }
