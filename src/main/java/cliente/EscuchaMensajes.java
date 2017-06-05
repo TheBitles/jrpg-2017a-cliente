@@ -20,6 +20,7 @@ import mensajeria.PaqueteDePersonajes;
 import mensajeria.PaqueteFinalizarBatalla;
 import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
+import dominio.Personaje;
 
 public class EscuchaMensajes extends Thread {
 
@@ -52,18 +53,20 @@ public class EscuchaMensajes extends Thread {
 
 			while (true) {
 
-				String objetoLeido = (String)entrada.readObject();
+				String objetoLeido = (String) entrada.readObject();
 
-				paquete = gson.fromJson(objetoLeido , Paquete.class);
+				paquete = gson.fromJson(objetoLeido, Paquete.class);
 
 				switch (paquete.getComando()) {
 
 				case Comando.CONEXION:
-					personajesConectados = (Map<Integer, PaquetePersonaje>) gson.fromJson(objetoLeido, PaqueteDePersonajes.class).getPersonajes();
+					personajesConectados = (Map<Integer, PaquetePersonaje>) gson
+							.fromJson(objetoLeido, PaqueteDePersonajes.class).getPersonajes();
 					break;
 
 				case Comando.MOVIMIENTO:
-					ubicacionPersonajes = (Map<Integer, PaqueteMovimiento>) gson.fromJson(objetoLeido, PaqueteDeMovimientos.class).getPersonajes();
+					ubicacionPersonajes = (Map<Integer, PaqueteMovimiento>) gson
+							.fromJson(objetoLeido, PaqueteDeMovimientos.class).getPersonajes();
 					break;
 
 				case Comando.BATALLA:
@@ -76,13 +79,25 @@ public class EscuchaMensajes extends Thread {
 
 				case Comando.ATACAR:
 					paqueteAtacar = (PaqueteAtacar) gson.fromJson(objetoLeido, PaqueteAtacar.class);
-					juego.getEstadoBatalla().getEnemigo().serHerido(paqueteAtacar.getNuevaSaludEnemigo(), paqueteAtacar.getNuevaEnergiaEnemigo());
-					juego.getEstadoBatalla().getPersonaje().serHerido(paqueteAtacar.getNuevaSaludPersonaje(), paqueteAtacar.getNuevaEnergiaPersonaje());
+
+					EstadoBatalla _estado = juego.getEstadoBatalla();
+					Personaje _personaje = _estado.getPersonaje();
+					Personaje _enemigo = _estado.getEnemigo();
+
+					HashMap<String, Object> mapa = _personaje.all();
+					mapa.putAll(paqueteAtacar.getAllPersonaje());
+					_personaje.update(mapa);
+
+					mapa = _enemigo.all();
+					mapa.putAll(paqueteAtacar.getAllEnemigo());
+					_enemigo.update(mapa);
+
 					juego.getEstadoBatalla().setMiTurno(true);
 					break;
 
 				case Comando.FINALIZARBATALLA:
-					paqueteFinalizarBatalla = (PaqueteFinalizarBatalla) gson.fromJson(objetoLeido, PaqueteFinalizarBatalla.class);
+					paqueteFinalizarBatalla = (PaqueteFinalizarBatalla) gson.fromJson(objetoLeido,
+							PaqueteFinalizarBatalla.class);
 					juego.getPersonaje().setEstado(Estado.estadoJuego);
 					Estado.setEstado(juego.getEstadoJuego());
 					break;
@@ -93,7 +108,7 @@ public class EscuchaMensajes extends Thread {
 					personajesConectados.remove(paquetePersonaje.getId());
 					personajesConectados.put(paquetePersonaje.getId(), paquetePersonaje);
 
-					if(juego.getPersonaje().getId() == paquetePersonaje.getId()) {
+					if (juego.getPersonaje().getId() == paquetePersonaje.getId()) {
 						juego.actualizarPersonaje();
 						juego.getEstadoJuego().actualizarPersonaje();
 					}
@@ -109,7 +124,7 @@ public class EscuchaMensajes extends Thread {
 		return ubicacionPersonajes;
 	}
 
-	public Map<Integer, PaquetePersonaje> getPersonajesConectados(){
+	public Map<Integer, PaquetePersonaje> getPersonajesConectados() {
 		return personajesConectados;
 	}
 }
