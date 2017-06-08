@@ -3,6 +3,7 @@
 	<name>jrpg-2017a-cliente</name>
 	<comment></comment>
 	<projects>
+		<project>dominio</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
