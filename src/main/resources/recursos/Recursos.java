@@ -80,7 +80,7 @@ public class Recursos {
 	public static BufferedImage menuBatalla;
 	public static BufferedImage menuBatallaDeshabilitado;
 	
-	public static BufferedImage itemVacio;
+	public static BufferedImage itemSlot;
 	
 	public static Map<String, BufferedImage> habilidades = new HashMap<>();
 	// Fin Batalla
@@ -95,6 +95,8 @@ public class Recursos {
 		
 		ANCHO = 256;
 		ALTO = 256;
+		
+		itemSlot = ImageIO.read(new File("recursos//inventario_ranura_vacia.jpg"));
 
 		// Inicio humano
 		spriteHumano = new SpriteSheet(CargadorImagen.cargarImagen("/Humano.png"));
@@ -433,8 +435,7 @@ public class Recursos {
 		menuBatallaDeshabilitado = CargadorImagen.cargarImagen("/MenuBatallaDeshabilitado.png");
 		actualizarBarraDeCarga(++elementosCargados, menuCarga);
 		// Fin Batalla
-		
-		itemVacio = ImageIO.read(new File("recursos//inventario_ranura_vacia.jpg"));
+
 	}
 
 	private static void actualizarBarraDeCarga(int elementosCargados, MenuCarga menuCarga) {
