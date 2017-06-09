@@ -8,6 +8,7 @@ import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
 
+	public static final int TAMANIO_INVENTARIO = 20;
 	private static final int SOLTAR = -1;
 	private static final int EQUIPAR = 1;
 
@@ -25,7 +26,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int nivel;
 	private int experiencia;
 
-	private int espacioInventarioMaximo;
 	private ArrayList<Item> inventario = new ArrayList<Item>();
 
 	public PaquetePersonaje() {
@@ -42,7 +42,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public void agregarItem(Item item) {
-		if(espacioSuficiente()) {
+		if(TAMANIO_INVENTARIO > this.inventario.size()) {
 			inventario.add(item);
 			actualizarAtributos(item, EQUIPAR);
 		}
@@ -188,9 +188,4 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		obj = super.clone();
 		return obj;
 	}
-
-	private boolean espacioSuficiente() {
-		return this.espacioInventarioMaximo - this.inventario.size() > 0;
-	}
-
 }

@@ -3,11 +3,13 @@ package frames;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dominio.Item;
+import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
 import recursos.Recursos;
 import java.awt.Component;
@@ -40,62 +44,66 @@ public class MenuInventario extends JFrame {
 		});
 	}
 
-	public MenuInventario(PaquetePersonaje personaje) {
+	public MenuInventario(final PaquetePersonaje personaje) {
 		setTitle("Inventario");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 228, 190);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 500, 500);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new GridLayout(0,5));
 
-		SlotPanel itemSlot1 = new SlotPanel();
-		itemSlot1.setBounds(3, 4, 60, 60);
-		contentPane.add(itemSlot1);
+		/*ArrayList<Item> items = personaje.getItems();
 
-		SlotPanel itemSlot2 = new SlotPanel();
-		itemSlot2.setBounds(73, 4, 60, 60);
-		contentPane.add(itemSlot2);
+		for(Item item : items) {
+			ItemView itemView = new ItemView(item, personaje);
+			//itemSlot1.setBounds(3, 4, 60, 60);
+			contentPane.add(itemView);
+		}*/
 
-		SlotPanel itemSlot3 = new SlotPanel();
-		itemSlot3.setBounds(143, 4, 60, 60);
-		contentPane.add(itemSlot3);
-
-		SlotPanel itemSlot4 = new SlotPanel();
-		itemSlot4.setBounds(3, 86, 60, 60);
-		contentPane.add(itemSlot4);
-
-		SlotPanel itemSlot5 = new SlotPanel();
-		itemSlot5.setBounds(143, 86, 60, 60);
-		contentPane.add(itemSlot5);
-
-		SlotPanel itemSlot6 = new SlotPanel();
-		itemSlot6.setBounds(73, 86, 60, 60);
-		contentPane.add(itemSlot6);
+		int i = 0;//items.size();
+		
+		while(i < PaquetePersonaje.TAMANIO_INVENTARIO) {
+			ItemView itemView = new ItemView();
+			contentPane.add(itemView);
+			i++;
+		}
 	}
 }
 
-class SlotPanel extends JPanel{
+class ItemView extends JPanel {
 
-	private BufferedImage itemEquipado;
+	private BufferedImage foto;
+	private JButton soltar;
+	
+    public ItemView(final Item item, final PaquetePersonaje personaje) {
+       this.foto = item.getIcono();
+       
+       soltar = new JButton("Soltar");
+       this.add(soltar);
 
-    public SlotPanel() {
-       try {
-          itemEquipado = ImageIO.read(new File("recursos//inventario_ranura_vacia.jpg"));
-       } catch (IOException e) {
-    	   e.printStackTrace();
-       }
+       soltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//personaje.setAccion(Comando.ACTUALIZAR_INVENTARIO);
+			}
+		});
     }
 
-    public void setItemEquipado(BufferedImage item) {
-    	this.itemEquipado = item;
-    }
+    public ItemView(){ //final Item item) {
+        try {
+           this.foto = ImageIO.read(new File("recursos//inventario_ranura_vacia.jpg"));
+        } catch (IOException e) {
+     	   e.printStackTrace();
+        }
+     }
 
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(itemEquipado, 0, 0, this);
+        g.drawImage(this.foto, 10, 10, this);
     }
 
 }
