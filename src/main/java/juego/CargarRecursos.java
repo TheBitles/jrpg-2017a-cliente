@@ -1,5 +1,7 @@
 package juego;
 
+import java.io.IOException;
+
 import cliente.Cliente;
 import mensajeria.Comando;
 import recursos.Recursos;
@@ -15,7 +17,11 @@ public class CargarRecursos extends Thread {
 	@Override
 	public void run() {
 		synchronized (cliente) {
-			Recursos.cargar(cliente.getMenuCarga());
+			try {
+				Recursos.cargar(cliente.getMenuCarga());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			cliente.setAccion(Comando.SALIR);
 			cliente.notify();

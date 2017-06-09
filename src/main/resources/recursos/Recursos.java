@@ -1,9 +1,13 @@
 package recursos;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import frames.MenuCarga;
 import mundo.Tile;
@@ -76,13 +80,16 @@ public class Recursos {
 	public static BufferedImage menuBatalla;
 	public static BufferedImage menuBatallaDeshabilitado;
 	
+	public static BufferedImage itemVacio;
+	
 	public static Map<String, BufferedImage> habilidades = new HashMap<>();
 	// Fin Batalla
+	
 	
 
 	// Se cargan todos los recursos del juego una sola vez al inicio
 
-	public static void cargar(MenuCarga menuCarga) {
+	public static void cargar(MenuCarga menuCarga) throws IOException {
 		
 		int elementosCargados = 0;
 		
@@ -426,6 +433,8 @@ public class Recursos {
 		menuBatallaDeshabilitado = CargadorImagen.cargarImagen("/MenuBatallaDeshabilitado.png");
 		actualizarBarraDeCarga(++elementosCargados, menuCarga);
 		// Fin Batalla
+		
+		itemVacio = ImageIO.read(new File("recursos//inventario_ranura_vacia.jpg"));
 	}
 
 	private static void actualizarBarraDeCarga(int elementosCargados, MenuCarga menuCarga) {

@@ -8,6 +8,9 @@ import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
 
+	private static final int ITEM_FUE_EQUIPADO = 1;
+	private static final int ITEM_FUE_ELIMINADO = 0;
+	
 	private int id;
 	private int idMapa;
 	private int estado;
@@ -21,14 +24,51 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int inteligencia;
 	private int nivel;
 	private int experiencia;
-	private ArrayList<Item> items = new ArrayList<Item>();
+	
+	private int espacioInventario;
+	private ArrayList<Item> inventario = new ArrayList<Item>();
 	
 	public PaquetePersonaje() {
 		estado = Estado.estadoOffline;
 	}
 
 	public ArrayList<Item> getItems() {
-		return items;
+		return inventario;
+	}
+	
+	public void agregarItem(Item item) {
+		if(tieneEspacio()) {
+			inventario.add(item);
+			actualizarAtributos(item, ITEM_FUE_EQUIPADO);
+		}
+	}
+	
+	public void eliminarItem(Item item) {
+		if(inventario.size() > 0) {
+			inventario.remove(item);
+			actualizarAtributos(item, ITEM_FUE_ELIMINADO);
+		}
+	}
+
+	public void actualizarAtributos(Item item, int estadoItem) {
+		if(estadoItem == ITEM_FUE_EQUIPADO) {
+			this.fuerza += item.getFuerza();
+			this.saludTope += item.getSalud();
+			this.inteligencia += item.getInteligencia();
+			this.destreza += item.getDestreza();
+			this.energiaTope += item.getEnergia();
+		}
+		if(estadoItem == ITEM_FUE_ELIMINADO) {
+			this.fuerza -= item.getFuerza();
+			this.saludTope -= item.getSalud();
+			this.inteligencia -= item.getInteligencia();
+			this.destreza -= item.getDestreza();
+			this.energiaTope -= item.getEnergia();
+		}
+	}
+	
+	private boolean tieneEspacio() {
+		return this.espacioInventario - this.inventario.size() > 0 ? true : false;
 	}
 	
 	public int getEstado() {
@@ -121,26 +161,21 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		this.energiaTope = energiaTope;
 	}
 
+	public void setFuerza(int fuerza) {
+		this.fuerza = fuerza;
+	}
 
 	public int getFuerza() {
 		return fuerza;
 	}
 
-
-	public void setFuerza(int fuerza) {
-		this.fuerza = fuerza;
-	}
-
-
-	public int getDestreza() {
-		return destreza;
-	}
-
-
 	public void setDestreza(int destreza) {
 		this.destreza = destreza;
 	}
 
+	public int getDestreza() {
+		return destreza;
+	}
 
 	public int getInteligencia() {
 		return inteligencia;
@@ -156,4 +191,5 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		obj = super.clone();
 		return obj;
 	}
+	
 }
