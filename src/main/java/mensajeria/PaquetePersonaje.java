@@ -37,12 +37,8 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public void anadirItem(int idItem, String nombre, String texto, int fuerza, int salud, int inteligencia, int destreza, int energia, String foto) {
-		Item item = new Item(id, nombre, texto, fuerza, salud, inteligencia, destreza, energia, foto);
-		agregarItem(item);
-	}
-
-	public void agregarItem(Item item) {
 		if(TAMANIO_INVENTARIO > this.inventario.size()) {
+			Item item = new Item(id, nombre, texto, fuerza, salud, inteligencia, destreza, energia, foto);
 			inventario.add(item);
 			actualizarAtributos(item, EQUIPAR);
 		}
@@ -54,12 +50,11 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public void actualizarAtributos(Item item, int accion) {
-		this.fuerza += item.getFuerza() * accion;
-		this.inteligencia += item.getInteligencia() * accion;
-		this.destreza += item.getDestreza() * accion;
-
-		this.saludTope += item.getSalud() * accion;
-		this.energiaTope += item.getEnergia() * accion;
+		this.ataque += item.getFuerza() * accion;
+		this.defensa += item.getInteligencia() * accion;
+		this.magia += item.getDestreza() * accion;
+		this.salud += item.getSalud() * accion;
+		this.energia += item.getEnergia() * accion;
 	}
 
 	public void setAtributosSegunItems(int accion) {
