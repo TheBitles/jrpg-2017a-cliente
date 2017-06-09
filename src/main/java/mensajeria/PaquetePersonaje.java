@@ -67,6 +67,28 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		}
 	}
 	
+	// para el login
+	public void aplicarAtributosItem() {
+		for(int i = 0 ; i < inventario.size() ; i++) {
+			this.fuerza += inventario.get(i).getFuerza();
+			this.saludTope += inventario.get(i).getSalud();
+			this.inteligencia += inventario.get(i).getInteligencia();
+			this.destreza += inventario.get(i).getDestreza();
+			this.energiaTope += inventario.get(i).getEnergia();
+		}
+	}
+	
+	// para el logout
+	public void removerAtributosItem() {
+		for(int i = 0 ; i < inventario.size() ; i++) {
+			this.fuerza -= inventario.get(i).getFuerza();
+			this.saludTope -= inventario.get(i).getSalud();
+			this.inteligencia -= inventario.get(i).getInteligencia();
+			this.destreza -= inventario.get(i).getDestreza();
+			this.energiaTope -= inventario.get(i).getEnergia();
+		}
+	}
+	
 	private boolean tieneEspacio() {
 		return this.espacioInventario - this.inventario.size() > 0 ? true : false;
 	}
