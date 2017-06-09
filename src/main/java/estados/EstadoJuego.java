@@ -59,7 +59,7 @@ public class EstadoJuego extends Estado {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public void actualizar() {
 		mundo.actualizar();
@@ -143,4 +143,8 @@ public class EstadoJuego extends Estado {
 		return tipoSolicitud;
 	}
 	
+	@Override
+	public boolean estaJugando() {
+		return false;
+	}
 }

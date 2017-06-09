@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.font.FontRenderContext;
@@ -19,6 +22,8 @@ import javax.swing.JOptionPane;
 import com.google.gson.Gson;
 
 import cliente.Cliente;
+import estados.Estado;
+import frames.MenuInventario;
 import frames.MenuJugar;
 import mensajeria.Comando;
 import mensajeria.Paquete;
@@ -59,9 +64,20 @@ public class Pantalla {
 			}
 		});
 
+		pantalla.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (KeyEvent.VK_I == e.getKeyCode()) {
+					MenuInventario menu = new MenuInventario(cliente.getPaquetePersonaje());
+					menu.setLocation(pantalla.getLocation());
+					menu.setVisible(true);
+				}
+			}
+		});
+
 		pantalla.setLocationRelativeTo(null);
 		pantalla.setVisible(false);
-
+		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(ANCHO, ALTO));
 		canvas.setMaximumSize(new Dimension(ANCHO, ALTO));

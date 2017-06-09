@@ -23,6 +23,8 @@ public abstract class Estado {
 	
 	public abstract void graficar(Graphics g);
 	
+	public abstract boolean estaJugando();
+	
 	public static void setEstado(Estado estado) {
 		estadoActual = estado;
 	}

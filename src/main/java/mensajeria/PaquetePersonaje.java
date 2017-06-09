@@ -36,14 +36,9 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return inventario;
 	}
 
-	public final void anadirItem(int idItem, String nombre, int wearLocation, int bonusSalud, int bonusEnergia, int bonusAtaque, int bonusDefensa, int bonusMagia, String foto, String fotoEquipado) {
-		try {
-			items.add(new Item(idItem,nombre,wearLocation,bonusSalud,bonusEnergia,bonusAtaque, bonusDefensa, bonusMagia, foto, fotoEquipado));
-			useBonus(bonusSalud, bonusEnergia, bonusAtaque, bonusDefensa, bonusMagia);
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+	public void anadirItem(int idItem, String nombre, String texto, int fuerza, int salud, int inteligencia, int destreza, int energia, String foto) {
+		Item item = new Item(id, nombre, texto, fuerza, salud, inteligencia, destreza, energia, foto);
+		agregarItem(item);
 	}
 
 	public void agregarItem(Item item) {
@@ -69,7 +64,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 
 	public void setAtributosSegunItems(int accion) {
 		for(Item item : inventario) {
-			actualizarAtributos(inventario.get(item), accion);
+			actualizarAtributos(item, accion);
 		}
 	}
 

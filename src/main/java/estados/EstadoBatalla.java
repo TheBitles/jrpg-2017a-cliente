@@ -79,6 +79,12 @@ public class EstadoBatalla extends Estado {
 	}
 
 	@Override
+	public boolean estaJugando() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
 	public void actualizar() {
 
 		juego.getCamara().setxOffset(-350);
