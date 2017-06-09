@@ -8,9 +8,9 @@ import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
 
-	private static final int ITEM_FUE_EQUIPADO = 1;
-	private static final int ITEM_FUE_ELIMINADO = 0;
-	
+	private static final int SOLTAR = -1;
+	private static final int EQUIPAR = 1;
+
 	private int id;
 	private int idMapa;
 	private int estado;
@@ -24,10 +24,10 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int inteligencia;
 	private int nivel;
 	private int experiencia;
-	
-	private int espacioInventario;
+
+	private int espacioInventarioMaximo;
 	private ArrayList<Item> inventario = new ArrayList<Item>();
-	
+
 	public PaquetePersonaje() {
 		estado = Estado.estadoOffline;
 	}
@@ -35,64 +35,44 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	public ArrayList<Item> getItems() {
 		return inventario;
 	}
-	
-	public void agregarItem(Item item) {
-		if(tieneEspacio()) {
-			inventario.add(item);
-			actualizarAtributos(item, ITEM_FUE_EQUIPADO);
-		}
-	}
-	
-	public void eliminarItem(Item item) {
-		if(inventario.size() > 0) {
-			inventario.remove(item);
-			actualizarAtributos(item, ITEM_FUE_ELIMINADO);
+
+	public final void anadirItem(int idItem, String nombre, int wearLocation, int bonusSalud, int bonusEnergia, int bonusAtaque, int bonusDefensa, int bonusMagia, String foto, String fotoEquipado) {
+		try {
+			items.add(new Item(idItem,nombre,wearLocation,bonusSalud,bonusEnergia,bonusAtaque, bonusDefensa, bonusMagia, foto, fotoEquipado));
+			useBonus(bonusSalud, bonusEnergia, bonusAtaque, bonusDefensa, bonusMagia);
+		} catch (IOException e) {
+
+			e.printStackTrace();
 		}
 	}
 
-	public void actualizarAtributos(Item item, int estadoItem) {
-		if(estadoItem == ITEM_FUE_EQUIPADO) {
-			this.fuerza += item.getFuerza();
-			this.saludTope += item.getSalud();
-			this.inteligencia += item.getInteligencia();
-			this.destreza += item.getDestreza();
-			this.energiaTope += item.getEnergia();
-		}
-		if(estadoItem == ITEM_FUE_ELIMINADO) {
-			this.fuerza -= item.getFuerza();
-			this.saludTope -= item.getSalud();
-			this.inteligencia -= item.getInteligencia();
-			this.destreza -= item.getDestreza();
-			this.energiaTope -= item.getEnergia();
+	public void agregarItem(Item item) {
+		if(espacioSuficiente()) {
+			inventario.add(item);
+			actualizarAtributos(item, EQUIPAR);
 		}
 	}
-	
-	// para el login
-	public void aplicarAtributosItem() {
-		for(int i = 0 ; i < inventario.size() ; i++) {
-			this.fuerza += inventario.get(i).getFuerza();
-			this.saludTope += inventario.get(i).getSalud();
-			this.inteligencia += inventario.get(i).getInteligencia();
-			this.destreza += inventario.get(i).getDestreza();
-			this.energiaTope += inventario.get(i).getEnergia();
+
+	public void eliminarItem(Item item) {
+		inventario.remove(item);
+		actualizarAtributos(item, SOLTAR);
+	}
+
+	public void actualizarAtributos(Item item, int accion) {
+		this.fuerza += item.getFuerza() * accion;
+		this.inteligencia += item.getInteligencia() * accion;
+		this.destreza += item.getDestreza() * accion;
+
+		this.saludTope += item.getSalud() * accion;
+		this.energiaTope += item.getEnergia() * accion;
+	}
+
+	public void setAtributosSegunItems(int accion) {
+		for(Item item : inventario) {
+			actualizarAtributos(inventario.get(item), accion);
 		}
 	}
-	
-	// para el logout
-	public void removerAtributosItem() {
-		for(int i = 0 ; i < inventario.size() ; i++) {
-			this.fuerza -= inventario.get(i).getFuerza();
-			this.saludTope -= inventario.get(i).getSalud();
-			this.inteligencia -= inventario.get(i).getInteligencia();
-			this.destreza -= inventario.get(i).getDestreza();
-			this.energiaTope -= inventario.get(i).getEnergia();
-		}
-	}
-	
-	private boolean tieneEspacio() {
-		return this.espacioInventario - this.inventario.size() > 0 ? true : false;
-	}
-	
+
 	public int getEstado() {
 		return estado;
 	}
@@ -100,15 +80,15 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	
+
 	public int getMapa(){
 		return idMapa;
 	}
-	
+
 	public void setMapa(int mapa){
 		idMapa = mapa;
 	}
-	
+
 	public int getNivel() {
 		return nivel;
 	}
@@ -213,5 +193,9 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		obj = super.clone();
 		return obj;
 	}
-	
+
+	private boolean espacioSuficiente() {
+		return this.espacioInventarioMaximo - this.inventario.size() > 0;
+	}
+
 }

@@ -73,7 +73,6 @@ public class TestCliente {
 			cliente.getSocket().close();
 
 			Assert.assertEquals(Paquete.msjExito, resultado.getMensaje());
-			System.out.println(Paquete.msjExito);
 
 		} catch (JsonSyntaxException | ClassNotFoundException | IOException e) {
 			e.printStackTrace();
@@ -247,4 +246,3 @@ public class TestCliente {
 		}
 	}
 }
-
