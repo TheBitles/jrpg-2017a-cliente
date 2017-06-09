@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import dominio.Item;
@@ -30,7 +32,7 @@ public class MenuInventario extends JFrame {
 
 	private JPanel contentPane;
 	private JButton cerrar;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,7 +50,7 @@ public class MenuInventario extends JFrame {
 		setTitle("Inventario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,7 +66,7 @@ public class MenuInventario extends JFrame {
 		}*/
 
 		int i = 0;//items.size();
-		
+
 		while(i < PaquetePersonaje.TAMANIO_INVENTARIO) {
 			ItemView itemView = new ItemView();
 			contentPane.add(itemView);
@@ -77,33 +79,36 @@ class ItemView extends JPanel {
 
 	private BufferedImage foto;
 	private JButton soltar;
-	
-    public ItemView(final Item item, final PaquetePersonaje personaje) {
-       this.foto = item.getIcono();
-       
-       soltar = new JButton("Soltar");
-       this.add(soltar);
+	private JLabel texto;
 
-       soltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//personaje.setAccion(Comando.ACTUALIZAR_INVENTARIO);
-			}
-		});
+    public ItemView(final Item item, final PaquetePersonaje personaje) {
+        texto = new JLabel(item.getNombre());
+        texto.setBorder(new CompoundBorder(texto.getBorder(), new EmptyBorder(0,0,55,0)));
+        this.add(texto);
+        
+        this.foto = item.getIcono();
+       
+        soltar = new JButton("Soltar");
+        this.add(soltar);
+
+        soltar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//personaje.setAccion(Comando.ACTUALIZAR_INVENTARIO);
+        	}
+        });
     }
 
-    public ItemView(){ //final Item item) {
-        try {
-           this.foto = ImageIO.read(new File("recursos//inventario_ranura_vacia.jpg"));
-        } catch (IOException e) {
-     	   e.printStackTrace();
-        }
+    public ItemView() {
+    	texto = new JLabel("Vacio");
+    	this.add(texto);
+    	this.foto = (new Item()).getIcono();
      }
 
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(this.foto, 10, 10, this);
+        g.drawImage(this.foto, 18, 20, this);
     }
 
 }
