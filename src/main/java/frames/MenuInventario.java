@@ -34,18 +34,33 @@ public class MenuInventario extends JFrame {
 	private JPanel contentPane;
 	private JButton cerrar;
 
+	
+	public static void main(String[] args){
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MenuInventario frame = new MenuInventario(null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		new MenuInventario(null);
+	}
+	
 	public MenuInventario(final PaquetePersonaje personaje) {
 		setTitle("Inventario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 400, 550);
 
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0,5));
+		contentPane.setLayout(new GridLayout(0,4));
 
-		ArrayList<Item> items = personaje.getInventario();
+		 ArrayList<Item> items = personaje.getInventario();
 
 		for(Item item : items) {
 			ItemView itemView = new ItemView(item, personaje);
@@ -54,7 +69,7 @@ public class MenuInventario extends JFrame {
 
 		int i = items.size();
 
-		while(i < 20) {
+		while(i < 12) {
 			ItemView itemView = new ItemView();
 			contentPane.add(itemView);
 			i++;
@@ -67,27 +82,60 @@ class ItemView extends JPanel {
 	private BufferedImage foto;
 	private JButton soltar;
 	private JLabel texto;
-
+	
     public ItemView(final Item item, final PaquetePersonaje personaje) {
         texto = new JLabel(item.getNombre());
         texto.setBorder(new CompoundBorder(texto.getBorder(), new EmptyBorder(0,0,55,0)));
         this.add(texto);
+         
+        String signo;
+        		
+        if(item.getAtaque() != 0){
+        	signo = item.getAtaque() > 0 ? "+" : "";
+        	JLabel attr = new JLabel(signo + item.getAtaque() + " ataque");
+        	this.add(attr);
+        }
         
-        this.foto = CargadorImagen.cargarImagen("/item" + item.getId() + ".png");
-       
+        if(item.getDefensa() != 0){
+        	signo = item.getDefensa() > 0 ? "+" : "";
+        	JLabel attr = new JLabel(signo + item.getDefensa() + " defensa");
+        	this.add(attr);
+        }
+        
+        if(item.getMagia() != 0){
+        	signo = item.getMagia() > 0 ? "+" : "";
+        	JLabel attr = new JLabel(signo + item.getMagia() + " magia");
+        	this.add(attr);
+        }
+        
+        if(item.getSalud() != 0){
+        	signo = item.getSalud() > 0 ? "+" : "";
+        	JLabel attr = new JLabel(signo + item.getSalud() + " salud");
+        	this.add(attr);
+        }
+        
+        if(item.getEnergia() != 0){
+        	signo = item.getEnergia() > 0 ? "+" : "";
+        	JLabel attr = new JLabel(signo + item.getEnergia() + " energia");
+        	this.add(attr);
+        }
+
         soltar = new JButton("Soltar");
         this.add(soltar);
-
         soltar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		//personaje.setAccion(Comando.ACTUALIZAR_INVENTARIO);
+        		// hacer que el chango suelte el item
         	}
         });
+        
+        this.foto = CargadorImagen.cargarImagen("/item" + item.getId() + ".png");
     }
-
+    
     public ItemView() {
     	texto = new JLabel("Vacio");
-    	this.add(texto);
+    	texto.setBorder(new CompoundBorder(texto.getBorder(), new EmptyBorder(0,0,55,0)));
+        this.add(texto);
+
     	this.foto = CargadorImagen.cargarImagen("/item0.png");
     }
     

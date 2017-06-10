@@ -51,7 +51,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public Item randomItem() {
-		int index = (new Random()).nextInt(20);
+		int index = (new Random()).nextInt(12);
 		return inventarioCompleto.get(index);
 	}
 

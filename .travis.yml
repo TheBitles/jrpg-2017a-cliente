@@ -4,4 +4,4 @@ jdk:
   - openjdk7
 
 before_install:
-  - wget -P $TRAVIS_BUILD_DIR/ https://cl.ly/kmEq/download/jrpg-2017a-dominio-0.1.jar
+  - wget -P $TRAVIS_BUILD_DIR/ https://cl.ly/krj7/download/jrpg-2017a-dominio-0.1.jar
