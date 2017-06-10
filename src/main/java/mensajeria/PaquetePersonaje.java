@@ -2,6 +2,7 @@ package mensajeria;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import dominio.Item;
 import estados.Estado;
@@ -22,6 +23,8 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int experiencia;
 
 	private ArrayList<Item> inventario = new ArrayList<Item>();
+	
+	private ArrayList<Item> inventarioCompleto = new ArrayList<Item>();
 
 	public PaquetePersonaje() {
 		estado = Estado.estadoOffline;
@@ -35,18 +38,19 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		Item item = new Item(id, nombre, ataque, defensa, magia, salud, energia);
 		inventario.add(item);
 	}
+	
+	public void agregarATodos(int id, String nombre, String icono, int ataque, int defensa, int magia, int salud, int energia) {
+		Item item = new Item(id, nombre, ataque, defensa, magia, salud, energia);
+		inventarioCompleto.add(item);
+	}
 
 	public void eliminarItem(Item item) {
 		inventario.remove(item);
 	}
 
-	public void actualizarAtributos(Item item, int accion) {
-		/*this.ataque += item.getAtaque() * accion;
-		this.defensa += item.getDefensa() * accion;
-		this.magia += item.getMagia() * accion;
-		this.salud += item.getSalud() * accion;
-		this.energia += item.getEnergia() * accion;
-		*/
+	public Item randomItem() {
+		int index = (new Random()).nextInt(20);
+		return inventarioCompleto.get(index);
 	}
 
 	public int getEstado() {

@@ -158,7 +158,7 @@ public class EstadoBatalla extends Estado {
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuSubirNivel);
 						}
 						
-						personaje.regalarItem();
+						personaje.regalarItem(paquetePersonaje.randomItem());
 						personaje.sacarBonus();
 						enemigo.sacarBonus();
 						
