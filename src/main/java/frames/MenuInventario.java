@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import dominio.Item;
 import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
+import recursos.CargadorImagen;
 import recursos.Recursos;
 import java.awt.Component;
 import java.awt.Color;
@@ -67,7 +68,7 @@ public class MenuInventario extends JFrame {
 
 		int i = 0;//items.size();
 
-		while(i < PaquetePersonaje.TAMANIO_INVENTARIO) {
+		while(i < 20) {
 			ItemView itemView = new ItemView();
 			contentPane.add(itemView);
 			i++;
@@ -86,7 +87,7 @@ class ItemView extends JPanel {
         texto.setBorder(new CompoundBorder(texto.getBorder(), new EmptyBorder(0,0,55,0)));
         this.add(texto);
         
-        this.foto = item.getIcono();
+        this.foto = CargadorImagen.cargarImagen("/item" + item.getId() + ".png");
        
         soltar = new JButton("Soltar");
         this.add(soltar);
@@ -101,14 +102,11 @@ class ItemView extends JPanel {
     public ItemView() {
     	texto = new JLabel("Vacio");
     	this.add(texto);
-    	this.foto = (new Item()).getIcono();
-     }
-
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(this.foto, 18, 20, this);
+    	this.foto = CargadorImagen.cargarImagen("/item0.png");
     }
-
+    
+    protected void paintComponent(Graphics g) {
+    	super.paintComponent(g);
+    	g.drawImage(this.foto, 18, 20, this);
+    }
 }

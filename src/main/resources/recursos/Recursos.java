@@ -80,12 +80,11 @@ public class Recursos {
 	public static BufferedImage menuBatalla;
 	public static BufferedImage menuBatallaDeshabilitado;
 	
-	public static BufferedImage itemSlot;
-	
 	public static Map<String, BufferedImage> habilidades = new HashMap<>();
 	// Fin Batalla
 	
 	
+	public static BufferedImage[] items;
 
 	// Se cargan todos los recursos del juego una sola vez al inicio
 
@@ -96,8 +95,6 @@ public class Recursos {
 		ANCHO = 256;
 		ALTO = 256;
 		
-		itemSlot = ImageIO.read(new File("recursos//inventario_ranura_vacia.jpg"));
-
 		// Inicio humano
 		spriteHumano = new SpriteSheet(CargadorImagen.cargarImagen("/Humano.png"));
 		

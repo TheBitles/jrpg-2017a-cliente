@@ -7,11 +7,6 @@ import dominio.Item;
 import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
-
-	public static final int TAMANIO_INVENTARIO = 20;
-	private static final int SOLTAR = -1;
-	private static final int EQUIPAR = 1;
-
 	private int id;
 	private int idMapa;
 	private int estado;
@@ -32,35 +27,26 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		estado = Estado.estadoOffline;
 	}
 
-	public ArrayList<Item> getItems() {
+	public ArrayList<Item> getInventario() {
 		return inventario;
 	}
 
-	public void anadirItem(int idItem, String nombre, String texto, int fuerza, int salud, int inteligencia, int destreza, int energia, String foto) {
-		if(TAMANIO_INVENTARIO > this.inventario.size()) {
-			Item item = new Item(id, nombre, texto, fuerza, salud, inteligencia, destreza, energia, foto);
-			inventario.add(item);
-			actualizarAtributos(item, EQUIPAR);
-		}
+	public void agregarItem(int id, String nombre, String icono, int ataque, int defensa, int magia, int salud, int energia) {
+		Item item = new Item(id, nombre, ataque, defensa, magia, salud, energia);
+		inventario.add(item);
 	}
 
 	public void eliminarItem(Item item) {
 		inventario.remove(item);
-		actualizarAtributos(item, SOLTAR);
 	}
 
 	public void actualizarAtributos(Item item, int accion) {
-		this.ataque += item.getFuerza() * accion;
-		this.defensa += item.getInteligencia() * accion;
-		this.magia += item.getDestreza() * accion;
+		/*this.ataque += item.getAtaque() * accion;
+		this.defensa += item.getDefensa() * accion;
+		this.magia += item.getMagia() * accion;
 		this.salud += item.getSalud() * accion;
 		this.energia += item.getEnergia() * accion;
-	}
-
-	public void setAtributosSegunItems(int accion) {
-		for(Item item : inventario) {
-			actualizarAtributos(item, accion);
-		}
+		*/
 	}
 
 	public int getEstado() {
