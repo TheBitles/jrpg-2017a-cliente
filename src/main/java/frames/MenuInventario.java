@@ -34,19 +34,6 @@ public class MenuInventario extends JFrame {
 	private JPanel contentPane;
 	private JButton cerrar;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuInventario frame = new MenuInventario(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public MenuInventario(final PaquetePersonaje personaje) {
 		setTitle("Inventario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -58,15 +45,14 @@ public class MenuInventario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0,5));
 
-		/*ArrayList<Item> items = personaje.getItems();
+		ArrayList<Item> items = personaje.getInventario();
 
 		for(Item item : items) {
 			ItemView itemView = new ItemView(item, personaje);
-			//itemSlot1.setBounds(3, 4, 60, 60);
 			contentPane.add(itemView);
-		}*/
+		}
 
-		int i = 0;//items.size();
+		int i = items.size();
 
 		while(i < 20) {
 			ItemView itemView = new ItemView();

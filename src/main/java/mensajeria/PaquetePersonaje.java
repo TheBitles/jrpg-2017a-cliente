@@ -33,18 +33,20 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	public ArrayList<Item> getInventario() {
 		return inventario;
 	}
+	
+	public void setInventario(final ArrayList<Item> inventario) {
+		this.inventario = inventario;
+	}
 
-	public void agregarItem(int id, String nombre, String icono, int ataque, int defensa, int magia, int salud, int energia) {
-		Item item = new Item(id, nombre, ataque, defensa, magia, salud, energia);
+	public void agregarItem(final Item item) {
 		inventario.add(item);
 	}
 	
-	public void agregarATodos(int id, String nombre, String icono, int ataque, int defensa, int magia, int salud, int energia) {
-		Item item = new Item(id, nombre, ataque, defensa, magia, salud, energia);
+	public void agregarATodos(final Item item) {
 		inventarioCompleto.add(item);
 	}
 
-	public void eliminarItem(Item item) {
+	public void eliminarItem(final Item item) {
 		inventario.remove(item);
 	}
 
@@ -57,7 +59,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return estado;
 	}
 
-	public void setEstado(int estado) {
+	public void setEstado(final int estado) {
 		this.estado = estado;
 	}
 
@@ -65,7 +67,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return idMapa;
 	}
 
-	public void setMapa(int mapa){
+	public void setMapa(final int mapa){
 		idMapa = mapa;
 	}
 
