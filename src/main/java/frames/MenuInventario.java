@@ -1,32 +1,23 @@
 package frames;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import dominio.Item;
-import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
 import recursos.CargadorImagen;
-import recursos.Recursos;
-import java.awt.Component;
 import java.awt.Color;
 
 public class MenuInventario extends JFrame {
