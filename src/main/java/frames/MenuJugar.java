@@ -23,6 +23,10 @@ import javax.swing.JLayeredPane;
 
 public class MenuJugar extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2505545175950170235L;
 	private JPanel contentPane;
 
 	public MenuJugar(final Cliente cliente) {

@@ -29,6 +29,10 @@ import javax.swing.JLayeredPane;
 
 public class MenuRegistro extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5989737949123912364L;
 	private JTextField txtUsuario;
 	private JPasswordField pwPassword;
 

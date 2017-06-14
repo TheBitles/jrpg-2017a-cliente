@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6748621185922488055L;
 	private int idPj;
 	private String username;
 	private String password;

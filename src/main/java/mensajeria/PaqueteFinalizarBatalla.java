@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class PaqueteFinalizarBatalla extends Paquete implements Serializable, Cloneable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4336384575505776619L;
 	private int id;
 	private int idEnemigo;
 	

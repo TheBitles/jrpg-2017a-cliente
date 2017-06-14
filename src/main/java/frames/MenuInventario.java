@@ -31,6 +31,10 @@ import java.awt.Color;
 
 public class MenuInventario extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2740459661263747445L;
 	private JPanel contentPane;
 	private JButton cerrar;
 
@@ -79,6 +83,10 @@ public class MenuInventario extends JFrame {
 
 class ItemView extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4419481840706977716L;
 	private BufferedImage foto;
 	private JButton soltar;
 	private JLabel texto;

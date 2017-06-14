@@ -26,6 +26,10 @@ import javax.swing.JLayeredPane;
 
 public class MenuCreacionPj extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8460933114073267513L;
 	private JPanel contentPane;
 	private JTextField nombre;
 	private JLabel destreza;

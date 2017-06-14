@@ -25,6 +25,10 @@ import javax.swing.JLayeredPane;
 
 public class MenuMapas extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7961872392264592429L;
 	private JPanel contentPane;
 
 	public MenuMapas(final Cliente cliente) {

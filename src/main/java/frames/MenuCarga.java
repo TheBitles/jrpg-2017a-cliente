@@ -18,6 +18,10 @@ import java.awt.event.WindowEvent;
 
 public class MenuCarga extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8141938576540037099L;
 	private JPanel contentPane;
 	private JLabel barraCargando;
 

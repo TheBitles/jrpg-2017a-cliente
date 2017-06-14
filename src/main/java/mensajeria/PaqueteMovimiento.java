@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class PaqueteMovimiento extends Paquete implements Serializable, Cloneable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4657956851398716619L;
 	private int id;
 	private float posX;
 	private float posY;

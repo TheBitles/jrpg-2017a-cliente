@@ -6,6 +6,10 @@ import dominio.Personaje;
 
 public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1367675797309960822L;
 	private int id;
 	private int idEnemigo;
 	private int nuevaSaludPersonaje;

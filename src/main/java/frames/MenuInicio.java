@@ -19,6 +19,10 @@ import cliente.Cliente;
 
 public class MenuInicio extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2486449545868224724L;
 	private JPanel contentPane;
 
 	public MenuInicio() {

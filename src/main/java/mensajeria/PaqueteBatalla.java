@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class PaqueteBatalla extends Paquete implements Serializable, Cloneable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6250166583615446054L;
 	private int id;
 	private int idEnemigo;
 	private boolean miTurno;

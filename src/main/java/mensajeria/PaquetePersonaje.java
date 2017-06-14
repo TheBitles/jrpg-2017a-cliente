@@ -8,6 +8,10 @@ import dominio.Item;
 import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4571752563998123167L;
 	private int id;
 	private int idMapa;
 	private int estado;

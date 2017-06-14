@@ -25,6 +25,10 @@ import javax.swing.JLayeredPane;
 
 public class MenuInicioSesion extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8111305383197101041L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
