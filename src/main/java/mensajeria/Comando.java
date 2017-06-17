@@ -14,4 +14,22 @@ public class Comando {
 	public static final int MOVIMIENTO = 5;
 	public static final int REGISTRO = 6;
 	public static final int SALIR = 7;
+	
+	public static final String[] nombres = {
+			"Conexion",
+			"CreacionPJ",
+			"InicioSesion",
+			"MostrarMapas",
+			"Movimiento",
+			"Registro",
+			"Salir",
+			"Batalla",
+			"Atacar",
+			"FinalizarBatalla",
+			"ActualizarPersonaje"
+	};
+	
+	public static String getNombre(int index) {
+		return nombres[index];
+	}
 }
