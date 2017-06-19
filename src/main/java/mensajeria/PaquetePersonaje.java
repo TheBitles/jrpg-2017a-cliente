@@ -26,9 +26,9 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int nivel;
 	private int experiencia;
 
-	private ArrayList<Item> inventario = new ArrayList<Item>();
+	private ArrayList<Item> inventario = new ArrayList<Item>(5);
 	
-	private ArrayList<Item> inventarioCompleto = new ArrayList<Item>();
+	private ArrayList<Item> inventarioCompleto = new ArrayList<Item>(20);
 
 	public PaquetePersonaje() {
 		estado = Estado.estadoOffline;
@@ -55,7 +55,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public Item randomItem() {
-		int index = (new Random()).nextInt(12);
+		int index = (new Random()).nextInt(20);
 		return inventarioCompleto.get(index);
 	}
 

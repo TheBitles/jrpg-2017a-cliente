@@ -11,14 +11,18 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import dominio.Item;
+import juego.Juego;
+import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
 import recursos.CargadorImagen;
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class MenuInventario extends JFrame {
 
@@ -27,7 +31,6 @@ public class MenuInventario extends JFrame {
 	 */
 	private static final long serialVersionUID = 2740459661263747445L;
 	private JPanel contentPane;
-	private JButton cerrar;
 
 	
 	public static void main(String[] args){
@@ -45,11 +48,14 @@ public class MenuInventario extends JFrame {
 	}
 	
 	public MenuInventario(final PaquetePersonaje personaje) {
+		setResizable(false);
+		setSize(new Dimension(400, 900));
 		setTitle("Inventario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 400, 550);
+		setBounds(100, 100, 400, 900);
 
 		contentPane = new JPanel();
+		contentPane.setSize(new Dimension(400, 900));
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,12 +68,13 @@ public class MenuInventario extends JFrame {
 			contentPane.add(itemView);
 		}
 
-		int i = items.size();
+		//int i = items.size();
 
-		while(i < 12) {
+		for (int i = items.size(); i < 20 ; i++){
+		//while(i < 20) {
 			ItemView itemView = new ItemView();
 			contentPane.add(itemView);
-			i++;
+			//i++;
 		}
 	}
 }
@@ -81,11 +88,13 @@ class ItemView extends JPanel {
 	private BufferedImage foto;
 	private JButton soltar;
 	private JLabel texto;
+	public Juego juego;
 	
     public ItemView(final Item item, final PaquetePersonaje personaje) {
         texto = new JLabel(item.getNombre());
         texto.setBorder(new CompoundBorder(texto.getBorder(), new EmptyBorder(0,0,55,0)));
         this.add(texto);
+        this.setSize(100,200);
          
         String signo;
         		
@@ -119,11 +128,20 @@ class ItemView extends JPanel {
         	this.add(attr);
         }
 
-        soltar = new JButton("Soltar");
+        soltar = new JButton("Soltar " + item.getNombre());
         this.add(soltar);
         soltar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		// hacer que el chango suelte el item
+        		// pedir confirmación
+				if (JOptionPane.showConfirmDialog(null, "¿Desea soltar el item " + item.getNombre() + ", " + personaje.getNombre() + "?") == 1){
+					//hacer que el chango suelte el item
+					personaje.eliminarItem(item);	
+					
+					personaje.setComando(Comando.ACTUALIZARPERSONAJE);
+					//juego.getCliente().getSalida().writeObject(gson.toJson(personaje));
+					
+					
+				}
         	}
         });
         
