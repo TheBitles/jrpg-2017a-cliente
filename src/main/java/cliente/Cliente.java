@@ -107,7 +107,8 @@ public class Cliente extends Thread {
 					}
 
 					// Le envio el paquete al servidor
-					salida.writeObject(gson.toJson(paqueteUsuario));
+					String paqueteEnviar = gson.toJson(paqueteUsuario);
+					salida.writeObject(paqueteEnviar);
 
 					// Recibo el paquete desde el servidor
 					String cadenaLeida = (String) entrada.readObject();

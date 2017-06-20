@@ -1,8 +1,6 @@
 package mensajeria;
 import java.io.Serializable;
 
-import estados.Estado;
-
 public class PaqueteFinalizarBatalla extends Paquete implements Serializable, Cloneable {
 
 	/**
