@@ -22,6 +22,8 @@ import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
 import recursos.CargadorImagen;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 
 public class MenuInventario extends JFrame {
@@ -133,19 +135,32 @@ class ItemView extends JPanel {
         soltar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// pedir confirmación
-				if (JOptionPane.showConfirmDialog(null, "¿Desea soltar el item " + item.getNombre() + ", " + personaje.getNombre() + "?") == 1){
-					//hacer que el chango suelte el item
-					personaje.eliminarItem(item);	
-					
-					personaje.setComando(Comando.ACTUALIZARPERSONAJE);
-					//juego.getCliente().getSalida().writeObject(gson.toJson(personaje));
-					
-					
+        		int opcionElegida = JOptionPane.showConfirmDialog(null, "¿Desea soltar el item " + item.getNombre() + ", " + personaje.getNombre() + "?");
+				if (opcionElegida == 0){
+					sacarDeInventario(item, personaje);
+					soltar.setVisible(false);
 				}
         	}
         });
         
         this.foto = CargadorImagen.cargarImagen("/item" + item.getId() + ".png");
+    }
+    
+    public void sacarDeInventario(Item item, PaquetePersonaje personaje){
+		//hacer que el chango suelte el item
+		personaje.eliminarItem(item);	
+		this.foto = CargadorImagen.cargarImagen("/item0.png");
+		this.texto.setText("Vacío");
+		for (Component c : this.getComponents()){
+			if (c.getClass().getName() == "javax.swing.JLabel"){
+				((JLabel) c).setText("");
+			}
+			
+		}
+		
+		personaje.setComando(Comando.ACTUALIZARPERSONAJE);
+		
+		//juego.getCliente().getSalida().writeObject(gson.toJson(personaje));
     }
     
     public ItemView() {
