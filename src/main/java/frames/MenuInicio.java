@@ -77,8 +77,10 @@ public class MenuInicio extends JFrame {
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Cliente cliente = new Cliente();
-				cliente.start();
-				dispose();
+				if (cliente.getCliente() != null){
+					cliente.start();
+					dispose();
+				}
 			}
 		});
 		

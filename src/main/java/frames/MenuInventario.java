@@ -52,7 +52,7 @@ public class MenuInventario extends JFrame {
 	public MenuInventario(final PaquetePersonaje personaje) {
 		setResizable(false);
 		setSize(new Dimension(400, 900));
-		setTitle("Inventario");
+		setTitle("Inventario de " + personaje.getNombre());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 900);
 
@@ -63,20 +63,16 @@ public class MenuInventario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0,4));
 
-		 ArrayList<Item> items = personaje.getInventario();
+		ArrayList<Item> items = personaje.getInventario();
 
 		for(Item item : items) {
 			ItemView itemView = new ItemView(item, personaje);
 			contentPane.add(itemView);
 		}
 
-		//int i = items.size();
-
 		for (int i = items.size(); i < 20 ; i++){
-		//while(i < 20) {
 			ItemView itemView = new ItemView();
 			contentPane.add(itemView);
-			//i++;
 		}
 	}
 }

@@ -69,7 +69,8 @@ public class Cliente extends Thread {
 			entrada = new ObjectInputStream(cliente.getInputStream());
 			salida = new ObjectOutputStream(cliente.getOutputStream());
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Servidor no disponible. Verifique servidor y reintente.");
 		}
 	}
 
@@ -210,7 +211,8 @@ public class Cliente extends Thread {
 				menuCarga.dispose();
 
 			} catch (IOException | InterruptedException | ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor durante el inicio de sesión.");
+				JOptionPane.showMessageDialog(null, "Error fatal: Falló la conexión con el servidor durante el inicio de sesión.\n"
+						+ "Verifique servidor y lance el juego nuevamente.");
 				System.exit(1);
 				e.printStackTrace();
 			}
@@ -219,6 +221,10 @@ public class Cliente extends Thread {
 	}
 
 	public Socket getSocket() {
+		return cliente;
+	}
+	
+	public Socket getCliente(){
 		return cliente;
 	}
 

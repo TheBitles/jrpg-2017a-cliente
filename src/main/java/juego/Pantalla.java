@@ -34,6 +34,8 @@ public class Pantalla {
 	private MenuInventario inventario;
 
 	private final Gson gson = new Gson();
+	protected int invX;
+	protected int invY;
 
 	public Pantalla(final String NOMBRE, final int ANCHO, final int ALTO, final Cliente cliente) {
 		pantalla = new JFrame(NOMBRE);
@@ -68,14 +70,7 @@ public class Pantalla {
 		pantalla.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				MenuInventario menu;
 				if (KeyEvent.VK_I == e.getKeyCode()) {
-					/*
-					PaquetePersonaje pj = cliente.getPaquetePersonaje();
-					menu = new MenuInventario(pj);
-					menu.setLocation(pantalla.getLocation());
-					menu.setVisible(true);
-					*/
 					/**
 					 * acá está el problema
 					 * el cliente que invoca getPaquetePersonaje NO tiene actualizado el inventario.
@@ -86,14 +81,21 @@ public class Pantalla {
 					
 						
 					PaquetePersonaje pqupdatepj = cliente.getJuego().actualizarPersonaje();
-/*						pqupdatepj.setComando(Comando.ACTUALIZARPERSONAJE);
-						
-						cliente.getSalida().writeObject(gson.toJson(pqupdatepj));
-						String objetoLeido = (String) cliente.getEntrada().readObject();
-						Paquete paqueteLeido = gson.fromJson(objetoLeido, Paquete.class);*/
-					menu = new MenuInventario(pqupdatepj);
-					menu.setLocation(pantalla.getLocation());
-					menu.setVisible(true);
+					
+					if (inventario == null){
+						inventario = new MenuInventario(pqupdatepj);
+						inventario.setLocation(pantalla.getLocation());
+					} else {
+						invX = inventario.getX();
+						invY = inventario.getY();
+						inventario.dispose();
+						inventario = new MenuInventario(pqupdatepj);
+						inventario.setLocation(invX, invY);
+					}
+					inventario.setVisible(true);
+					inventario.toFront();
+					
+					
 						
 					
 					
