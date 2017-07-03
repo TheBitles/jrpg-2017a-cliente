@@ -1,27 +1,28 @@
 package mensajeria;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6748621185922488055L;
 	private int idPj;
 	private String username;
 	private String password;
 	private boolean inicioSesion;
 	
-	public PaqueteUsuario(){
-		
-	}
+	private ArrayList<String> usuariosConectados;
+	private boolean estado;
+	
+	public PaqueteUsuario() { }
 
 	public PaqueteUsuario(int pj, String user, String pw){
 		idPj = pj;
 		username = user;
 		password = pw;
 		inicioSesion = false;
+		
+		estado = true;
 	}
 	
 	public int getIdPj() {
@@ -54,6 +55,22 @@ public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
 
 	public void setInicioSesion(boolean inicioSesion) {
 		this.inicioSesion = inicioSesion;
+	}
+	
+	public ArrayList<String> getUsuariosConectados() {
+		return usuariosConectados;
+	}
+
+	public void setUsuariosConectados(ArrayList<String> usuariosConectados) {
+		this.usuariosConectados = usuariosConectados;
+	}
+	
+	public boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 	
 	public Object clone() {

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,7 @@ import frames.*;
 import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.Paquete;
+import mensajeria.PaqueteMensaje;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
@@ -31,7 +33,10 @@ public class Cliente extends Thread {
 	// Paquete usuario y paquete personaje
 	private PaqueteUsuario paqueteUsuario;
 	private PaquetePersonaje paquetePersonaje;
+	private PaqueteMensaje paqueteMensaje = new PaqueteMensaje();
 
+	private HashMap<String, Chat> chatsActivos = new HashMap<>();
+	
 	// Acciones que realiza el usuario
 	private int accion;
 
@@ -263,5 +268,36 @@ public class Cliente extends Thread {
 
 	public MenuCarga getMenuCarga() {
 		return menuCarga;
+	}
+	
+	public HashMap<String, Chat> getChatsActivos() {
+		return chatsActivos;
+	}
+
+	public void setChatsActivos(HashMap<String, Chat> chatsActivos) {
+		this.chatsActivos = chatsActivos;
+	}
+	
+	public PaqueteMensaje getPaqueteMensaje() {
+		return paqueteMensaje;
+	}
+
+	public void setPaqueteMensaje(PaqueteMensaje fromJson) {
+		this.paqueteMensaje.setMensaje(fromJson.getMensaje());
+		this.paqueteMensaje.setEmisor(fromJson.getEmisor());
+		this.paqueteMensaje.setReceptor(fromJson.getReceptor());
+	}
+	
+	public void setPaquetePersonaje(PaquetePersonaje paquetePersonaje) {
+		this.paquetePersonaje = paquetePersonaje;
+	}
+	
+	public void setItems(PaquetePersonaje nuevoPP) {
+		int cantVieja = this.paquetePersonaje.getInventario().size();
+		int cantNueva = nuevoPP.getInventario().size();
+		
+		if(cantVieja < cantNueva) {
+			this.paquetePersonaje.agregarItem(nuevoPP.getInventario().get(cantNueva - 1));
+		}
 	}
 }

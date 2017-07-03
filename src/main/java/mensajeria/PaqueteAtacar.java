@@ -2,6 +2,8 @@ package mensajeria;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
+
 import dominio.Personaje;
 
 public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
@@ -16,6 +18,9 @@ public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 	private int nuevaEnergiaPersonaje;
 	private int nuevaSaludEnemigo;
 	private int nuevaEnergiaEnemigo;
+	
+	private HashMap<String, Integer> mapaPersonaje;
+	private HashMap<String, Integer> mapaEnemigo;
 
 	public PaqueteAtacar(int id, int idEnemigo, int nuevaSalud, int nuevaEnergia, int nuevaSaludEnemigo,
 			int nuevaEnergiaEnemigo) {
@@ -26,8 +31,17 @@ public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 		this.nuevaEnergiaPersonaje = nuevaEnergia;
 		this.nuevaSaludEnemigo = nuevaSaludEnemigo;
 		this.nuevaEnergiaEnemigo = nuevaEnergiaEnemigo;
+		
+		mapaPersonaje = new HashMap<>();
+		mapaEnemigo = new HashMap<>();
+		
+		mapaPersonaje.put(Personaje.ATRIBUTO_SALUD, getNuevaSaludPersonaje());
+		mapaPersonaje.put(Personaje.ATRIBUTO_ENERGIA, getNuevaEnergiaPersonaje());
+		
+		mapaEnemigo.put(Personaje.ATRIBUTO_SALUD, getNuevaSaludEnemigo());
+		mapaEnemigo.put(Personaje.ATRIBUTO_ENERGIA, getNuevaEnergiaEnemigo());
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -77,26 +91,20 @@ public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 	}
 
 	/**
-	 * Inicializa un HashMap con los atributos salud y energia del personaje
+	 * Devuelve un HashMap con los atributos salud y energia del personaje
 	 * @return mapaPersonaje
 	 */
 
-	public HashMap<String, Object> getAllPersonaje() {
-		HashMap<String, Object> mapaPersonaje = new HashMap<>();
-		mapaPersonaje.put(Personaje.ATRIBUTO_SALUD, getNuevaSaludPersonaje());
-		mapaPersonaje.put(Personaje.ATRIBUTO_ENERGIA, getNuevaEnergiaPersonaje());
+	public HashMap<String, Integer> getMapaPersonaje() {
 		return mapaPersonaje;
 	}
 
 	/**
-	 * Inicializa un HashMap con los atributos salud y energia del enemigo
+	 * Devuelve un HashMap con los atributos salud y energia del enemigo
 	 * @return mapaEnemigo
 	 */
 
-	public HashMap<String, Object> getAllEnemigo() {
-		HashMap<String, Object> mapaEnemigo = new HashMap<>();
-		mapaEnemigo.put(Personaje.ATRIBUTO_SALUD, getNuevaSaludEnemigo());
-		mapaEnemigo.put(Personaje.ATRIBUTO_ENERGIA, getNuevaEnergiaEnemigo());
+	public HashMap<String, Integer> getMapaEnemigo() {
 		return mapaEnemigo;
 	}
 

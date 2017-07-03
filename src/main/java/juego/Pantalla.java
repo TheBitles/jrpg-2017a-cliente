@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import com.google.gson.Gson;
 
 import cliente.Cliente;
+import frames.MenuChat;
 import frames.MenuInventario;
 import frames.MenuJugar;
 import mensajeria.Comando;
@@ -66,9 +67,15 @@ public class Pantalla {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (KeyEvent.VK_I == e.getKeyCode()) {
-					MenuInventario menu = new MenuInventario(cliente.getPaquetePersonaje());
-					menu.setLocation(pantalla.getLocation());
-					menu.setVisible(true);
+					MenuInventario inventario = new MenuInventario(cliente.getPaquetePersonaje());
+					inventario.setLocation(pantalla.getLocation());
+					inventario.setVisible(true);
+				}
+				
+				if (KeyEvent.VK_C == e.getKeyCode()) {
+					MenuChat chat = new MenuChat(cliente.getJuego());
+					chat.setLocation(pantalla.getLocation());
+					chat.setVisible(true);
 				}
 			}
 		});

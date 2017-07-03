@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -58,8 +59,10 @@ public class EstadoBatalla extends Estado {
 		mundo = new Mundo(juego, "recursos/mundoBatalla.txt", "recursos/mundoBatallaCapaDos.txt");
 		miTurno = paqueteBatalla.isMiTurno();
 
-		paquetePersonaje = juego.getEscuchaMensajes().getPersonajesConectados().get(paqueteBatalla.getId());
-		paqueteEnemigo = juego.getEscuchaMensajes().getPersonajesConectados().get(paqueteBatalla.getIdEnemigo());
+		Map<Integer, PaquetePersonaje> personajesConectados = juego.getPersonajesConectados();
+		
+		paquetePersonaje = personajesConectados.get(paqueteBatalla.getId());
+		paqueteEnemigo = personajesConectados.get(paqueteBatalla.getIdEnemigo());
 
 		crearPersonajes();
 
