@@ -104,7 +104,7 @@ public class MenuRegistro extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				synchronized(cliente){
 					cliente.getPaqueteUsuario().setUsername(txtUsuario.getText());
-					cliente.getPaqueteUsuario().setPassword(pwPassword.getText());
+					cliente.getPaqueteUsuario().setPassword(pwPassword.getPassword().toString());
 					cliente.setAccion(Comando.REGISTRO);
 					cliente.notify();
 				}

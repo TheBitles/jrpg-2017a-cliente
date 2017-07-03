@@ -53,7 +53,6 @@ public class EscuchaMensajes extends Thread {
 			ubicacionPersonajes = new HashMap<>();
 
 			while (true) {
-
 				String objetoLeido = (String) entrada.readObject();
 				
 				paquete = gson.fromJson(objetoLeido, Paquete.class);
