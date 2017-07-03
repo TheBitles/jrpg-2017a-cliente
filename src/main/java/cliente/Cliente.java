@@ -190,11 +190,11 @@ public class Cliente extends Thread {
 				// Establezco el mapa en el paquete personaje
 				paquetePersonaje.setIp(miIp);
 
-				// Le envio el paquete con el mapa seleccionado
+				// Le envio el paquete al server con el mapa seleccionado
 				salida.writeObject(gson.toJson(paquetePersonaje));
 
 				// Instancio el juego y cargo los recursos
-				wome = new Juego("World Of the Middle Earth", 800, 600, this, paquetePersonaje);
+				wome = new Juego("World Of the Middle Earth - " + getPaqueteUsuario().getUsername() + " playing with " +  getPaquetePersonaje().getNombre(), 800, 600, this, paquetePersonaje);
 
 				// Muestro el menu de carga
 				menuCarga = new MenuCarga(this);

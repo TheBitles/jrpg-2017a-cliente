@@ -25,11 +25,13 @@ import frames.MenuInventario;
 import frames.MenuJugar;
 import mensajeria.Comando;
 import mensajeria.Paquete;
+import mensajeria.PaquetePersonaje;
 
 public class Pantalla {
 
 	private JFrame pantalla;
 	private Canvas canvas;
+	private MenuInventario inventario;
 
 	private final Gson gson = new Gson();
 
@@ -61,14 +63,41 @@ public class Pantalla {
 				}
 			}
 		});
+		
 
 		pantalla.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
+				MenuInventario menu;
 				if (KeyEvent.VK_I == e.getKeyCode()) {
-					MenuInventario menu = new MenuInventario(cliente.getPaquetePersonaje());
+					/*
+					PaquetePersonaje pj = cliente.getPaquetePersonaje();
+					menu = new MenuInventario(pj);
 					menu.setLocation(pantalla.getLocation());
 					menu.setVisible(true);
+					*/
+					/**
+					 * acá está el problema
+					 * el cliente que invoca getPaquetePersonaje NO tiene actualizado el inventario.
+					 * tengo que mandarle al server un mensaje pidiendo actualizar y leer lo actualizado
+					 * how the hell, idk
+					 */
+					
+					
+						
+					PaquetePersonaje pqupdatepj = cliente.getJuego().actualizarPersonaje();
+/*						pqupdatepj.setComando(Comando.ACTUALIZARPERSONAJE);
+						
+						cliente.getSalida().writeObject(gson.toJson(pqupdatepj));
+						String objetoLeido = (String) cliente.getEntrada().readObject();
+						Paquete paqueteLeido = gson.fromJson(objetoLeido, Paquete.class);*/
+					menu = new MenuInventario(pqupdatepj);
+					menu.setLocation(pantalla.getLocation());
+					menu.setVisible(true);
+						
+					
+					
+
 				}
 			}
 		});

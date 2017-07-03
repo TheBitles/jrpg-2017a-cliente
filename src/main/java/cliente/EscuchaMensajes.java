@@ -1,5 +1,6 @@
 package cliente;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class EscuchaMensajes extends Thread {
 			while (true) {
 
 				String objetoLeido = (String) entrada.readObject();
-
+				
 				paquete = gson.fromJson(objetoLeido, Paquete.class);
 
 				switch (paquete.getComando()) {
@@ -105,7 +106,6 @@ public class EscuchaMensajes extends Thread {
 				case Comando.ACTUALIZARPERSONAJE:
 					paquetePersonaje = (PaquetePersonaje) gson.fromJson(objetoLeido, PaquetePersonaje.class);
 
-					personajesConectados.remove(paquetePersonaje.getId());
 					personajesConectados.put(paquetePersonaje.getId(), paquetePersonaje);
 
 					if (juego.getPersonaje().getId() == paquetePersonaje.getId()) {
@@ -114,10 +114,13 @@ public class EscuchaMensajes extends Thread {
 					}
 				}
 			}
+		} catch (IOException e){
+			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor - " + e.getLocalizedMessage());
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor.");
+			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor.\n" + e.getLocalizedMessage());
 			e.printStackTrace();
-		}
+		} 
+		
 	}
 
 	public Map<Integer, PaqueteMovimiento> getUbicacionPersonajes() {

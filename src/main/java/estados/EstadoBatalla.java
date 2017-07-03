@@ -152,7 +152,8 @@ public class EstadoBatalla extends Estado {
 
 				if (haySpellSeleccionada && seRealizoAccion) {
 					if (!enemigo.estaVivo()) {
-						juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuGanarBatalla);
+						//juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuGanarBatalla);
+						juego.getEstadoJuego().setHaySolicitud(true, this.paqueteEnemigo, MenuInfoPersonaje.menuGanarBatalla);
 						if(personaje.ganarExperiencia(enemigo.getNivel() * 40)){
 							juego.getPersonaje().setNivel(personaje.getNivel());
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuSubirNivel);

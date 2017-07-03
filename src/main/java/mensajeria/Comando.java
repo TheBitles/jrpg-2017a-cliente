@@ -18,6 +18,7 @@ public class Comando {
 	public static final String[] nombres = {
 			"Conexion",
 			"CreacionPJ",
+			"Desconectar",
 			"InicioSesion",
 			"MostrarMapas",
 			"Movimiento",
