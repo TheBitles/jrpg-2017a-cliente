@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import dominio.Item;
+import dominio.Personaje;
 import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
@@ -27,7 +28,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int experiencia;
 
 	private ArrayList<Item> inventario = new ArrayList<Item>();
-	
 	private ArrayList<Item> inventarioCompleto = new ArrayList<Item>();
 
 	public PaquetePersonaje() {
@@ -55,7 +55,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 
 	public Item randomItem() {
-		int index = (new Random()).nextInt(12);
+		int index = (new Random()).nextInt(Personaje.MAX_ITEMS);
 		return inventarioCompleto.get(index);
 	}
 
