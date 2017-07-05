@@ -250,4 +250,8 @@ public class Juego implements Runnable {
 	public Map<String, Chat> getChatsActivos() {
 		return chatsActivos;
 	}
+	
+	public void setChatsActivos(Map<String, Chat> chatsActivos) {
+		this.chatsActivos = chatsActivos;
+	}
 }

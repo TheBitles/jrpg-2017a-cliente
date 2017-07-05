@@ -35,7 +35,6 @@ public abstract class Comando {
 			"FinalizarBatalla",
 			"ActualizarPersonaje",
 			"Conversar",
-			"ActualizarPersonajeLvl",
 			"ActualizarInventario",
 			"Comercio",
 			"ActualizarComercio",

@@ -23,16 +23,16 @@ public class PaqueteMensaje extends Paquete implements Serializable, Cloneable {
 			return emisor;
 		}
 
-		public void setEmisor(String idEmisor) {
-			this.emisor = idEmisor;
+		public void setEmisor(String emisor) {
+			this.emisor = emisor;
 		}
 
 		public String getReceptor() {
 			return receptor;
 		}
 
-		public void setReceptor(String idReceptor){
-			this.receptor = idReceptor;
+		public void setReceptor(String receptor){
+			this.receptor = receptor;
 		}
 		
 		public Object clone() {

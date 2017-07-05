@@ -5,10 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -22,6 +19,7 @@ import cliente.Cliente;
 import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.ComandoConversar;
+import mensajeria.Paquete;
 import mensajeria.PaqueteMensaje;
 
 public class Chat extends JFrame {
@@ -74,11 +72,7 @@ public class Chat extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				cliente.getChatsActivos().remove(getTitle());
-
-				if(!cliente.getChatsActivos().containsKey(ComandoConversar.NOMBRESALA)) {
-					MenuChat.getBotonChatPublico().setEnabled(true);
-				}
+				juego.getChatsActivos().remove(getTitle());
 				dispose();
 			}
 		});
@@ -90,16 +84,16 @@ public class Chat extends JFrame {
 	private void enviarMensaje() {
 		if(!texto.getText().equals("")) {
 			chat.append("Yo: " + texto.getText() + "\n");
-			
-			cliente.setAccion(Comando.CONVERSAR);
 
 			PaqueteMensaje paqueteMensaje = cliente.getPaqueteMensaje();
 			paqueteMensaje.setEmisor(juego.getPersonaje().getNombre());
 			paqueteMensaje.setReceptor(getTitle().equals(ComandoConversar.NOMBRESALA) ? null : getTitle());
 			paqueteMensaje.setContenido(texto.getText());
-			
+			paqueteMensaje.setComando(Comando.CONVERSAR);
+			cliente.setPaqueteMensaje(paqueteMensaje);
+
 			try {
-				cliente.getSalida().writeObject(gson.toJson(cliente.getPaqueteMensaje()));
+				juego.getCliente().getSalida().writeObject(gson.toJson(cliente.getPaqueteMensaje(), PaqueteMensaje.class));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

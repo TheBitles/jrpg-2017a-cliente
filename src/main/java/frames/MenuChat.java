@@ -61,10 +61,10 @@ public class MenuChat extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				if (arg0.getClickCount() == 2) {
 					if(list.getSelectedValue() != null) {
-						if(!cliente.getChatsActivos().containsKey(list.getSelectedValue())) {
+						if(!juego.getChatsActivos().containsKey(list.getSelectedValue())) {
 							if (cliente != null) {
 								Chat chat = new Chat(juego);
-								cliente.getChatsActivos().put(list.getSelectedValue(), chat);
+								juego.getChatsActivos().put(list.getSelectedValue(), chat);
 								chat.setTitle(list.getSelectedValue());
 								chat.setVisible(true);
 							}	
@@ -77,9 +77,9 @@ public class MenuChat extends JFrame {
 		botonChatPublico = new JButton(ComandoConversar.NOMBRESALA);
 		botonChatPublico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!cliente.getChatsActivos().containsKey(ComandoConversar.NOMBRESALA)) {
+				if(!juego.getChatsActivos().containsKey(ComandoConversar.NOMBRESALA)) {
 					Chat chat = new Chat(juego);
-					cliente.getChatsActivos().put(ComandoConversar.NOMBRESALA, chat);
+					juego.getChatsActivos().put(ComandoConversar.NOMBRESALA, chat);
 					chat.setTitle(ComandoConversar.NOMBRESALA);
 					chat.setVisible(true);
 					botonChatPublico.setEnabled(false);

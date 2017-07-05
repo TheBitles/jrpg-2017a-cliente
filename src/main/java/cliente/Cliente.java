@@ -34,8 +34,6 @@ public class Cliente extends Thread {
 	private PaqueteUsuario paqueteUsuario;
 	private PaquetePersonaje paquetePersonaje;
 	private PaqueteMensaje paqueteMensaje = new PaqueteMensaje();
-
-	private HashMap<String, Chat> chatsActivos = new HashMap<>();
 	
 	// Acciones que realiza el usuario
 	private int accion;
@@ -268,14 +266,6 @@ public class Cliente extends Thread {
 
 	public MenuCarga getMenuCarga() {
 		return menuCarga;
-	}
-	
-	public HashMap<String, Chat> getChatsActivos() {
-		return chatsActivos;
-	}
-
-	public void setChatsActivos(HashMap<String, Chat> chatsActivos) {
-		this.chatsActivos = chatsActivos;
 	}
 	
 	public PaqueteMensaje getPaqueteMensaje() {
