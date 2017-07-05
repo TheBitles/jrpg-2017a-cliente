@@ -22,19 +22,21 @@ public class ComandoConversar extends Comando {
 		String receptor = pm.getReceptor();
 		String mensaje = pm.getContenido();
 		
+		System.out.println(pm.toString());
+		
 		Map<String, Chat> chatsActivos = juego.getChatsActivos();
 		
-		if (receptor != null){
+		if (receptor == null){
 			emisor = NOMBRESALA;
 		} else {
 			//if (Pantalla.ventContac != null) {
-			MenuChat.getBotonChatPublico().setEnabled(false);					
+			MenuChat.getBotonChatPublico().setEnabled(false);
 			//}
 		}
 		
 			
 		if (!(juego.getChatsActivos().containsKey(emisor))) {
-			chat = new Chat(juego.getCliente()); // wtf
+			chat = new Chat(juego);
 			chat.setTitle(emisor);
 			chat.setVisible(true);
 

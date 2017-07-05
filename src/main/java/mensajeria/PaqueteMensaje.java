@@ -40,4 +40,10 @@ public class PaqueteMensaje extends Paquete implements Serializable, Cloneable {
 			obj = super.clone();
 			return obj;
 		}
+
+		@Override
+		public String toString() {
+			return "PaqueteMensaje [emisor=" + emisor + ", receptor=" + receptor + ", contenido=" + contenido + "]";
+		}
+
 }

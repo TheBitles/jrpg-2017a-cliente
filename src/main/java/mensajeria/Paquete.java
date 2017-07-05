@@ -69,4 +69,20 @@ public class Paquete implements Serializable, Cloneable {
 		return obj;
 	}
 
+	public Comando getByReflection(String paquete) {
+		try {
+			return (Comando) Class.forName(paquete + ".Comando" + Comando.COMANDOS[comando]).newInstance();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

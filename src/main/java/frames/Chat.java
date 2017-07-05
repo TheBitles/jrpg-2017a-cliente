@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,10 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.google.gson.Gson;
+
 import cliente.Cliente;
 import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.ComandoConversar;
+import mensajeria.PaqueteMensaje;
 
 public class Chat extends JFrame {
 
@@ -28,12 +32,14 @@ public class Chat extends JFrame {
 	private JTextArea chat;
 	private Juego juego;
 	private Cliente cliente;
+	private final Gson gson = new Gson();
 	
 	/**
 	 * Create the frame. 
 	 */
-	public Chat(final Cliente cliente) {
-		this.cliente = cliente;
+	public Chat(final Juego juego) {
+		this.juego = juego;
+		this.cliente = juego.getCliente();
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -65,15 +71,6 @@ public class Chat extends JFrame {
 			}
 		});
 
-		JButton enviar = new JButton("Enviar");
-		enviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enviarMensaje();
-			}
-		});
-		enviar.setBounds(334, 225, 81, 23);
-		contentPane.add(enviar);
-
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
@@ -93,19 +90,23 @@ public class Chat extends JFrame {
 	private void enviarMensaje() {
 		if(!texto.getText().equals("")) {
 			chat.append("Yo: " + texto.getText() + "\n");
-
-			cliente.setAccion(Comando.CONVERSAR);
-			cliente.getPaqueteMensaje().setEmisor(cliente.getPaqueteUsuario().getUsername());
-			cliente.getPaqueteMensaje().setReceptor(getTitle());
-			cliente.getPaqueteMensaje().setContenido(texto.getText());
 			
-			synchronized (cliente) {
-				cliente.notify();
+			cliente.setAccion(Comando.CONVERSAR);
+
+			PaqueteMensaje paqueteMensaje = cliente.getPaqueteMensaje();
+			paqueteMensaje.setEmisor(juego.getPersonaje().getNombre());
+			paqueteMensaje.setReceptor(getTitle().equals(ComandoConversar.NOMBRESALA) ? null : getTitle());
+			paqueteMensaje.setContenido(texto.getText());
+			
+			try {
+				cliente.getSalida().writeObject(gson.toJson(cliente.getPaqueteMensaje()));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+
+			texto.requestFocus();
 			texto.setText("");
 		}
-		texto.requestFocus();
-
 	}
 	
 	public JTextArea getChat() {

@@ -4,9 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.DefaultListModel;
@@ -14,12 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
@@ -31,11 +26,9 @@ import mensajeria.PaqueteUsuario;
 public class MenuChat extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private String user = null;
 	private PaqueteUsuario paqueteUsuario;
 	
 	private JPanel contentPane;
-	private DefaultListModel<String> modelo = new DefaultListModel<String>();
 	private static JList<String> list = new JList<String>();
 	private JTextField miNombre;
 	private static JButton botonChatPublico;
@@ -70,7 +63,7 @@ public class MenuChat extends JFrame {
 					if(list.getSelectedValue() != null) {
 						if(!cliente.getChatsActivos().containsKey(list.getSelectedValue())) {
 							if (cliente != null) {
-								Chat chat = new Chat(cliente);
+								Chat chat = new Chat(juego);
 								cliente.getChatsActivos().put(list.getSelectedValue(), chat);
 								chat.setTitle(list.getSelectedValue());
 								chat.setVisible(true);
@@ -85,7 +78,7 @@ public class MenuChat extends JFrame {
 		botonChatPublico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!cliente.getChatsActivos().containsKey(ComandoConversar.NOMBRESALA)) {
-					Chat chat = new Chat(cliente);
+					Chat chat = new Chat(juego);
 					cliente.getChatsActivos().put(ComandoConversar.NOMBRESALA, chat);
 					chat.setTitle(ComandoConversar.NOMBRESALA);
 					chat.setVisible(true);
@@ -104,7 +97,6 @@ public class MenuChat extends JFrame {
 		contentPane.add(miNombre);
 		miNombre.setColumns(10);
 
-		list.setModel(modelo);
 		scrollPane.setViewportView(list);
 
 		JLabel label = new JLabel("");
@@ -143,8 +135,8 @@ public class MenuChat extends JFrame {
 			}
 		}
 
-		getList().removeAll();
-		getList().setModel(modeloDeLista);
+		list.removeAll();
+		list.setModel(modeloDeLista);
 	}
 
 }

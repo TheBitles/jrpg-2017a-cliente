@@ -283,7 +283,7 @@ public class Cliente extends Thread {
 	}
 
 	public void setPaqueteMensaje(PaqueteMensaje fromJson) {
-		this.paqueteMensaje.setMensaje(fromJson.getMensaje());
+		this.paqueteMensaje.setContenido(fromJson.getContenido());
 		this.paqueteMensaje.setEmisor(fromJson.getEmisor());
 		this.paqueteMensaje.setReceptor(fromJson.getReceptor());
 	}
