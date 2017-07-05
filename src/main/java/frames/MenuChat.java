@@ -63,9 +63,7 @@ public class MenuChat extends JFrame {
 					if(list.getSelectedValue() != null) {
 						if(!juego.getChatsActivos().containsKey(list.getSelectedValue())) {
 							if (cliente != null) {
-								Chat chat = new Chat(juego);
-								juego.getChatsActivos().put(list.getSelectedValue(), chat);
-								chat.setTitle(list.getSelectedValue());
+								Chat chat = new Chat(juego, list.getSelectedValue());
 								chat.setVisible(true);
 							}	
 						}
@@ -78,11 +76,8 @@ public class MenuChat extends JFrame {
 		botonChatPublico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!juego.getChatsActivos().containsKey(ComandoConversar.NOMBRESALA)) {
-					Chat chat = new Chat(juego);
-					juego.getChatsActivos().put(ComandoConversar.NOMBRESALA, chat);
-					chat.setTitle(ComandoConversar.NOMBRESALA);
+					Chat chat = new Chat(juego, ComandoConversar.NOMBRESALA);
 					chat.setVisible(true);
-					botonChatPublico.setEnabled(false);
 				}
 			}
 		});

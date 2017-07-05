@@ -179,4 +179,8 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		obj = super.clone();
 		return obj;
 	}
+
+	public ArrayList<Item> getInventarioCompleto() {
+		return inventarioCompleto;
+	}
 }

@@ -11,8 +11,7 @@ public class ComandoConversar extends ComandoCliente {
 	@Override
 	public void procesar() {
 		juego.getCliente().setPaqueteMensaje((PaqueteMensaje) gson.fromJson(objetoLeido, PaqueteMensaje.class));
-		
-		Chat chat;
+
 		Map<String, Chat> chatsActivos = juego.getChatsActivos();
 
 		PaqueteMensaje pm = juego.getCliente().getPaqueteMensaje();
@@ -27,11 +26,7 @@ public class ComandoConversar extends ComandoCliente {
 		}
 
 		if (!(chatsActivos.containsKey(objetivo))) {
-			chat = new Chat(juego);
-			chat.setTitle(objetivo);
-			chat.setVisible(true);
-			chatsActivos.put(objetivo, chat);	
-			juego.setChatsActivos(chatsActivos);
+			new Chat(juego, objetivo);
 		}
 
 		chatsActivos.get(objetivo).getChat().append(emisor + ": " + contenido + "\n");

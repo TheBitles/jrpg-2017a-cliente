@@ -19,7 +19,6 @@ import cliente.Cliente;
 import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.ComandoConversar;
-import mensajeria.Paquete;
 import mensajeria.PaqueteMensaje;
 
 public class Chat extends JFrame {
@@ -30,15 +29,21 @@ public class Chat extends JFrame {
 	private JTextArea chat;
 	private Juego juego;
 	private Cliente cliente;
+	private String nombreSala;
 	private final Gson gson = new Gson();
 	
 	/**
 	 * Create the frame. 
+	 * @param nombresala 
 	 */
-	public Chat(final Juego juego) {
+	public Chat(final Juego juego, final String nombreSala) {
 		this.juego = juego;
 		this.cliente = juego.getCliente();
+		this.nombreSala = nombreSala;
 
+		juego.getChatsActivos().put(nombreSala, this);
+		
+		setTitle(nombreSala);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setResizable(false);
@@ -72,10 +77,11 @@ public class Chat extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				juego.getChatsActivos().remove(getTitle());
+				juego.getChatsActivos().remove(nombreSala);
 				dispose();
 			}
 		});
+
 		texto.setBounds(10, 223, 314, 27);
 		contentPane.add(texto);
 		texto.setColumns(10);
@@ -87,7 +93,7 @@ public class Chat extends JFrame {
 
 			PaqueteMensaje paqueteMensaje = cliente.getPaqueteMensaje();
 			paqueteMensaje.setEmisor(juego.getPersonaje().getNombre());
-			paqueteMensaje.setReceptor(getTitle().equals(ComandoConversar.NOMBRESALA) ? null : getTitle());
+			paqueteMensaje.setReceptor(nombreSala.equals(ComandoConversar.NOMBRESALA) ? null : nombreSala);
 			paqueteMensaje.setContenido(texto.getText());
 			paqueteMensaje.setComando(Comando.CONVERSAR);
 			cliente.setPaqueteMensaje(paqueteMensaje);

@@ -21,10 +21,13 @@ import javax.swing.JOptionPane;
 import com.google.gson.Gson;
 
 import cliente.Cliente;
+import frames.Chat;
 import frames.MenuChat;
 import frames.MenuInventario;
 import frames.MenuJugar;
+import frames.MenuMercado;
 import mensajeria.Comando;
+import mensajeria.ComandoConversar;
 import mensajeria.Paquete;
 
 public class Pantalla {
@@ -67,15 +70,17 @@ public class Pantalla {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (KeyEvent.VK_I == e.getKeyCode()) {
-					MenuInventario inventario = new MenuInventario(cliente.getPaquetePersonaje());
-					inventario.setLocation(pantalla.getLocation());
-					inventario.setVisible(true);
+					MenuInventario.getInstance().dibujar(cliente.getPaquetePersonaje(), pantalla.getLocation());
 				}
 				
 				if (KeyEvent.VK_C == e.getKeyCode()) {
-					MenuChat chat = new MenuChat(cliente.getJuego());
-					chat.setLocation(pantalla.getLocation());
+					Chat chat = new Chat(cliente.getJuego(), ComandoConversar.NOMBRESALA);
+					chat.setLocation((int)(pantalla.getLocation().getX() - 100), ((int) pantalla.getLocation().getY()));
 					chat.setVisible(true);
+				}
+				
+				if (KeyEvent.VK_M == e.getKeyCode()) {
+					MenuMercado.getInstance().dibujar(cliente.getPaquetePersonaje(), pantalla.getLocation());
 				}
 			}
 		});
