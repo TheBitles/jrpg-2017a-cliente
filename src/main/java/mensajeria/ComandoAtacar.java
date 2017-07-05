@@ -2,7 +2,7 @@ package mensajeria;
 
 import mensajeria.PaqueteAtacar;
 
-public class ComandoAtacar extends Comando {
+public class ComandoAtacar extends ComandoCliente {
 
 	@Override
 	public void procesar() {

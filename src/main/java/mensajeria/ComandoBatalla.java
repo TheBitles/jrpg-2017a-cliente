@@ -4,7 +4,7 @@ import estados.Estado;
 import estados.EstadoBatalla;
 import mensajeria.PaqueteBatalla;
 
-public class ComandoBatalla extends Comando {
+public class ComandoBatalla extends ComandoCliente {
 
 	@Override
 	public void procesar() {

@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 import mensajeria.PaquetePersonaje;
 
-public class ComandoCrearPersonaje extends Comando {
+public class ComandoCrearPersonaje extends ComandoCliente {
 
 	@Override
 	public void procesar() {

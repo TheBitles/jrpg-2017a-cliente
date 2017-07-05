@@ -6,7 +6,7 @@ import frames.MenuChat;
 import mensajeria.PaqueteDePersonajes;
 import mensajeria.PaquetePersonaje;
 
-public class ComandoConexion extends Comando {
+public class ComandoConexion extends ComandoCliente {
 
 	
 	@Override

@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import mensajeria.Paquete;
 import mensajeria.PaquetePersonaje;
 
-public class ComandoInicioSesion extends ComandosCliente {
+public class ComandoInicioSesion extends ComandoCliente {
 
 	@Override
 	public void procesar() {

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import mensajeria.PaquetePersonaje;
 
-public class ComandoActualizarPersonaje extends Comando {
+public class ComandoActualizarPersonaje extends ComandoCliente {
 
 	@Override
 	public void procesar() {

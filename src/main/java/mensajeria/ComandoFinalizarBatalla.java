@@ -3,7 +3,7 @@ package mensajeria;
 import estados.Estado;
 import mensajeria.PaqueteFinalizarBatalla;
 
-public class ComandoFinalizarBatalla extends Comando {
+public class ComandoFinalizarBatalla extends ComandoCliente {
 
 	@Override
 	public void procesar() {

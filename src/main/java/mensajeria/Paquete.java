@@ -3,10 +3,7 @@ package mensajeria;
 import java.io.Serializable;
 
 public class Paquete implements Serializable, Cloneable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -4721031779363864756L;
 	public static String msjExito = "1";
 	public static String msjFracaso = "0";
@@ -15,9 +12,7 @@ public class Paquete implements Serializable, Cloneable {
 	private String ip;
 	private int comando;
 
-	public Paquete() {
-		
-	}
+	public Paquete() { }
 	
 	public Paquete(String mensaje, String nick, String ip, int comando) {
 		this.mensaje = mensaje;

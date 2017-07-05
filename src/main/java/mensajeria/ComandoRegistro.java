@@ -1,32 +1,20 @@
 package mensajeria;
 
 import javax.swing.JOptionPane;
-
 import frames.MenuCreacionPj;
 import mensajeria.Paquete;
 
-public class ComandoRegistro extends ComandosCliente {
+public class ComandoRegistro extends ComandoCliente {
 
 	@Override
 	public void procesar() {
-		synchronized (this) {
-			
-		
+		synchronized(this) {		
 			Paquete paquete = (Paquete) gson.fromJson(objetoLeido, Paquete.class);
+
 			if (paquete.getMensaje().equals(Paquete.msjExito)) {
 
-				// Abro el menu para la creaci�n del personaje
-				MenuCreacionPj menuCreacionPJ = new MenuCreacionPj(cliente, cliente.getPaquetePersonaje(),gson);
+				MenuCreacionPj menuCreacionPJ = new MenuCreacionPj(cliente, cliente.getPaquetePersonaje());
 				menuCreacionPJ.setVisible(true);
-
-				// Espero a que el usuario cree el personaje
-
-				// Recibo el paquete personaje con los datos (la id incluida)
-
-				
-
-				// Indico que el usuario ya inicio sesion
-				
 
 			} else {
 				if (paquete.getMensaje().equals(Paquete.msjFracaso)) {
@@ -35,8 +23,8 @@ public class ComandoRegistro extends ComandosCliente {
 				// El usuario no pudo iniciar sesión
 				cliente.getPaqueteUsuario().setInicioSesion(false);
 			}
-
 		}
+		
 	}
-
+	
 }

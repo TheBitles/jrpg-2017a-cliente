@@ -4,7 +4,7 @@ import java.util.Map;
 import frames.Chat;
 import mensajeria.PaqueteMensaje;
 
-public class ComandoConversar extends Comando {
+public class ComandoConversar extends ComandoCliente {
 
 	public final static String NOMBRESALA = "Chat General";
 	

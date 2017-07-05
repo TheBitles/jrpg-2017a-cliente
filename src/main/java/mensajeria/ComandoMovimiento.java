@@ -2,7 +2,7 @@ package mensajeria;
 
 import mensajeria.PaqueteDeMovimientos;
 
-public class ComandoMovimiento extends Comando {
+public class ComandoMovimiento extends ComandoCliente {
 
 	@Override
 	public void procesar() {

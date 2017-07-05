@@ -9,7 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.google.gson.Gson;
+
 import cliente.Cliente;
+import mensajeria.Comando;
 import mensajeria.PaquetePersonaje;
 
 import javax.swing.JComboBox;
@@ -37,6 +40,8 @@ public class MenuCreacionPj extends JFrame {
 	private JLabel inteligencia;
 	private JLabel salud;
 	private JLabel energia;
+	
+	private final Gson gson = new Gson();
 
 	private JComboBox<String> cbxCasta;
 	private JComboBox<String> cbxRaza;
@@ -67,9 +72,10 @@ public class MenuCreacionPj extends JFrame {
 				personaje.setFuerza(Integer.parseInt(vecFuerza[cbxCasta.getSelectedIndex()]));
 				personaje.setDestreza(Integer.parseInt(vecDestreza[cbxCasta.getSelectedIndex()]));
 				personaje.setInteligencia(Integer.parseInt(vecInteligencia[cbxCasta.getSelectedIndex()]));
-				synchronized (cliente) {
-					cliente.notify();
-				}
+				
+
+				enviarDatos(cliente);
+				
 				dispose();
 			}
 		});
@@ -179,9 +185,9 @@ public class MenuCreacionPj extends JFrame {
 				personaje.setFuerza(Integer.parseInt(vecFuerza[cbxCasta.getSelectedIndex()]));
 				personaje.setDestreza(Integer.parseInt(vecDestreza[cbxCasta.getSelectedIndex()]));
 				personaje.setInteligencia(Integer.parseInt(vecInteligencia[cbxCasta.getSelectedIndex()]));
-				synchronized (cliente) {
-					cliente.notify();
-				}
+				
+				enviarDatos(cliente);
+
 				dispose();
 			}
 		});
@@ -230,4 +236,16 @@ public class MenuCreacionPj extends JFrame {
 		layeredPane.add(lblBackground, new Integer(0));
 		lblBackground.setIcon(new ImageIcon(MenuCreacionPj.class.getResource("/frames/menuBackground.jpg")));
 	}
+
+
+	private void enviarDatos(final Cliente cliente) {
+		try {
+			cliente.getPaquetePersonaje().setComando(Comando.CREACIONPJ);
+			cliente.getSalida().writeObject(gson.toJson(cliente.getPaquetePersonaje()));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+
 }

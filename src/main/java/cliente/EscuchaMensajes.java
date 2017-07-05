@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import juego.Juego;
 import mensajeria.Comando;
+import mensajeria.ComandoCliente;
 import mensajeria.Paquete;
 import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
@@ -30,7 +31,7 @@ public class EscuchaMensajes extends Thread {
 
 		try {
 			Paquete paquete;
-			Comando comando;
+			ComandoCliente comando;
 
 			juego.setPersonajesConectados(new HashMap<Integer, PaquetePersonaje>());
 			juego.setUbicacionPersonajes(new HashMap<Integer, PaqueteMovimiento>());
@@ -39,7 +40,7 @@ public class EscuchaMensajes extends Thread {
 				String objetoLeido = (String) entrada.readObject();
 				paquete = gson.fromJson(objetoLeido , Paquete.class);
 
-				comando = paquete.getByReflection("mensajeria");
+				comando = (ComandoCliente) paquete.getByReflection("mensajeria");
 				comando.setJuego(juego);
 				comando.setObjetoLeido(objetoLeido);
 				comando.procesar();
