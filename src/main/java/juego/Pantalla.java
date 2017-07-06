@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 
 import cliente.Cliente;
 import frames.Chat;
-import frames.MenuChat;
 import frames.MenuInventario;
 import frames.MenuJugar;
 import frames.MenuMercado;
@@ -70,19 +69,13 @@ public class Pantalla {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (KeyEvent.VK_I == e.getKeyCode()) {
-					MenuInventario.getInstance().dibujar(cliente.getPaquetePersonaje(), pantalla.getLocation());
+					MenuInventario.getInstance().dibujar(cliente.getJuego(), cliente.getPaquetePersonaje(), pantalla.getLocation());
 				}
 				
 				if (KeyEvent.VK_C == e.getKeyCode()) {
 					Chat chat = new Chat(cliente.getJuego(), ComandoConversar.NOMBRESALA);
 					chat.setLocation((int)(pantalla.getLocation().getX() - 100), ((int) pantalla.getLocation().getY()));
 					chat.setVisible(true);
-				}
-				
-				if (KeyEvent.VK_L == e.getKeyCode()) {
-					MenuChat menuChat = new MenuChat(cliente.getJuego());
-					menuChat.setLocation((int)(pantalla.getLocation().getX() - 100), ((int) pantalla.getLocation().getY()));
-					menuChat.setVisible(true);
 				}
 
 				if (KeyEvent.VK_M == e.getKeyCode() && cliente.getJuego().getEstadoJuego().estaEnMercado(cliente.getJuego().getUbicacionPersonaje())) {

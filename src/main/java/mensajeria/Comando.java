@@ -19,7 +19,7 @@ public abstract class Comando {
 	public static final int ATACAR = 9;
 	public static final int FINALIZARBATALLA = 10;
 	public static final int ACTUALIZARPERSONAJE = 11;
-	public static final int ACTUALIZARINVENTARIO = 12;
+	public static final int GUARDARINVENTARIO = 12;
 	public static final int CONVERSAR = 13;
 	public static final int INTERCAMBIO = 14;
 
@@ -36,7 +36,7 @@ public abstract class Comando {
 			"Atacar",
 			"FinalizarBatalla",
 			"ActualizarPersonaje",
-			"ActualizarInventario",
+			"GuardarInventario",
 			"Conversar",
 			"Intercambio"
 	};

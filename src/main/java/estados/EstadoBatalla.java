@@ -60,7 +60,7 @@ public class EstadoBatalla extends Estado {
 		miTurno = paqueteBatalla.isMiTurno();
 
 		Map<Integer, PaquetePersonaje> personajesConectados = juego.getPersonajesConectados();
-		
+
 		paquetePersonaje = personajesConectados.get(paqueteBatalla.getId());
 		paqueteEnemigo = personajesConectados.get(paqueteBatalla.getIdEnemigo());
 
@@ -88,7 +88,7 @@ public class EstadoBatalla extends Estado {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	public void actualizar() {
 
@@ -160,11 +160,11 @@ public class EstadoBatalla extends Estado {
 							juego.getPersonaje().setNivel(personaje.getNivel());
 							juego.getEstadoJuego().setHaySolicitud(true, juego.getPersonaje(), MenuInfoPersonaje.menuSubirNivel);
 						}
-						
+
 						personaje.regalarItem(paquetePersonaje.randomItem());
 						personaje.sacarBonus();
 						enemigo.sacarBonus();
-						
+
 						finalizarBatalla();
 						Estado.setEstado(juego.getEstadoJuego());
 					} else {
@@ -213,7 +213,7 @@ public class EstadoBatalla extends Estado {
 		int nivel = paquetePersonaje.getNivel();
 		int id = paquetePersonaje.getId();
 		ArrayList<Item> inventario = paquetePersonaje.getInventario();
-		
+
 		Casta casta = null;
 		if (paquetePersonaje.getCasta().equals("Guerrero")) {
 			casta = new Guerrero();
@@ -235,7 +235,7 @@ public class EstadoBatalla extends Estado {
 		}
 
 		personaje.darBonus();
-		
+
 		nombre = paqueteEnemigo.getNombre();
 		salud = paqueteEnemigo.getSaludTope();
 		energia = paqueteEnemigo.getEnergiaTope();
@@ -246,7 +246,7 @@ public class EstadoBatalla extends Estado {
 		nivel = paqueteEnemigo.getNivel();
 		id = paqueteEnemigo.getId();
 		inventario = paqueteEnemigo.getInventario();
-		
+
 		casta = null;
 		if (paqueteEnemigo.getCasta().equals("Guerrero")) {
 			casta = new Guerrero();
@@ -266,7 +266,7 @@ public class EstadoBatalla extends Estado {
 			enemigo = new Elfo(nombre, salud, energia, fuerza, destreza, inteligencia, casta,
 					experiencia, nivel, id, inventario);
 		}
-		
+
 		enemigo.darBonus();
 	}
 
@@ -282,7 +282,7 @@ public class EstadoBatalla extends Estado {
 	private void finalizarBatalla() {
 		try {
 			juego.getCliente().getSalida().writeObject(gson.toJson(paqueteFinalizarBatalla));
-			
+
 			paquetePersonaje.setSaludTope(personaje.getSaludTope());
 			paquetePersonaje.setEnergiaTope(personaje.getEnergiaTope());
 			paquetePersonaje.setNivel(personaje.getNivel());
@@ -291,7 +291,7 @@ public class EstadoBatalla extends Estado {
 			paquetePersonaje.setFuerza(personaje.getFuerza());
 			paquetePersonaje.setInteligencia(personaje.getInteligencia());
 			paquetePersonaje.setInventario(personaje.getInventario());
-			
+
 			paqueteEnemigo.setSaludTope(enemigo.getSaludTope());
 			paqueteEnemigo.setEnergiaTope(enemigo.getEnergiaTope());
 			paqueteEnemigo.setNivel(enemigo.getNivel());
@@ -300,7 +300,7 @@ public class EstadoBatalla extends Estado {
 			paqueteEnemigo.setFuerza(enemigo.getFuerza());
 			paqueteEnemigo.setInteligencia(enemigo.getInteligencia());
 			paqueteEnemigo.setInventario(enemigo.getInventario());
-			
+
 			paquetePersonaje.setComando(Comando.ACTUALIZARPERSONAJE);
 			paqueteEnemigo.setComando(Comando.ACTUALIZARPERSONAJE);
 

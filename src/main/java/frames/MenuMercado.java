@@ -24,6 +24,7 @@ import juego.Pantalla;
 import mensajeria.ComandoConversar;
 import mensajeria.PaqueteIntercambiable;
 import mensajeria.PaqueteIntercambio;
+import mensajeria.PaqueteInventario;
 import mensajeria.PaquetePersonaje;
 import java.awt.Color;
 
@@ -352,6 +353,9 @@ public class MenuMercado extends JFrame {
 
     		repaint();
 		}
-
+		
+		personaje.getInventario().remove(menorIndiceVacio);
+		personaje.getInventario().add(item);
+		MenuInventario.getInstance().enviarDatos();
 	}
 }
