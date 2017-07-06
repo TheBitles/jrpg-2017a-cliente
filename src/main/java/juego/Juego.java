@@ -19,7 +19,7 @@ import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
 
 public class Juego implements Runnable {
-	
+
 	private Pantalla pantalla;
 	private final String NOMBRE;
 	private final int ANCHO;
@@ -37,7 +37,7 @@ public class Juego implements Runnable {
 
 	// HandlerMouse
 	private HandlerMouse handlerMouse;
-	
+
 	// Camara
 	private Camara camara;
 
@@ -50,7 +50,7 @@ public class Juego implements Runnable {
 	private Map<Integer, PaquetePersonaje> personajesConectados;
 	private Map<Integer, PaqueteMovimiento> ubicacionPersonajes;
 	private Map<String, Chat> chatsActivos = new HashMap<>();
-	
+
 	private CargarRecursos cargarRecursos;
 
 	public Juego(final String nombre, final int ancho, final int alto, Cliente cliente, PaquetePersonaje pp) {
@@ -59,21 +59,21 @@ public class Juego implements Runnable {
 		this.ANCHO = ancho;
 		this.cliente = cliente;
 		this.paquetePersonaje = pp;
-		
-		// Inicializo la ubicacion del personaje 
+
+		// Inicializo la ubicacion del personaje
 		ubicacionPersonaje = new PaqueteMovimiento();
 		ubicacionPersonaje.setIdPersonaje(paquetePersonaje.getId());
 		ubicacionPersonaje.setFrame(0);
 		ubicacionPersonaje.setDireccion(6);
-		
+
 		// Creo el escucha de mensajes
 		escuchaMensajes = new EscuchaMensajes(this);
 		escuchaMensajes.start();
-		
+
 		handlerMouse = new HandlerMouse();
-		
+
 		iniciar();
-		
+
 		cargarRecursos = new CargarRecursos(cliente);
 		cargarRecursos.start();
 	}
@@ -89,7 +89,7 @@ public class Juego implements Runnable {
 	}
 
 	private void actualizar() { // Actualiza los objetos y sus posiciones
-		
+
 		if (Estado.getEstado() != null) {
 			Estado.getEstado().actualizar();
 		}
@@ -108,7 +108,7 @@ public class Juego implements Runnable {
 
 		// Graficado de imagenes
 		g.setFont(new Font("Book Antiqua",1,15));
-	
+
 		if (Estado.getEstado() != null) {
 			Estado.getEstado().graficar(g);
 		}
@@ -156,7 +156,7 @@ public class Juego implements Runnable {
 	public synchronized void start() { // Inicia el juego
 		if (corriendo)
 			return;
-		
+
 		estadoJuego = new EstadoJuego(this);
 		Estado.setEstado(estadoJuego);
 		pantalla.mostrar();
@@ -188,45 +188,43 @@ public class Juego implements Runnable {
 	public HandlerMouse getHandlerMouse() {
 		return handlerMouse;
 	}
-	
+
 	public Camara getCamara() {
 		return camara;
 	}
-	
+
 	public EstadoJuego getEstadoJuego() {
 		return (EstadoJuego) estadoJuego;
 	}
-	
+
 	public EstadoBatalla getEstadoBatalla(){
 		return (EstadoBatalla) estadoBatalla;
 	}
-	
+
 	public void setEstadoBatalla(EstadoBatalla estadoBatalla){
 		this.estadoBatalla = estadoBatalla;
 	}
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
-	
+
 	public EscuchaMensajes getEscuchaMensajes() {
 		return escuchaMensajes;
 	}
-	
+
 	public PaquetePersonaje getPersonaje() {
 		return paquetePersonaje;
 	}
-	
+
 	public PaqueteMovimiento getUbicacionPersonaje(){
 		return ubicacionPersonaje;
 	}
-	
+
 	public void setPersonaje(PaquetePersonaje paquetePersonaje) {
 		this.paquetePersonaje = paquetePersonaje;
 	}
-	
-	
-	
+
 	public void actualizarPersonaje() {
 		paquetePersonaje = (PaquetePersonaje) (personajesConectados.get(paquetePersonaje.getId()).clone());
 	}
@@ -238,7 +236,7 @@ public class Juego implements Runnable {
 	public void setPersonajesConectados(Map<Integer, PaquetePersonaje> map) {
 		this.personajesConectados = map;
 	}
-	
+
 	public Map<Integer, PaqueteMovimiento> getUbicacionPersonajes() {
 		return ubicacionPersonajes;
 	}
@@ -250,7 +248,7 @@ public class Juego implements Runnable {
 	public Map<String, Chat> getChatsActivos() {
 		return chatsActivos;
 	}
-	
+
 	public void setChatsActivos(Map<String, Chat> chatsActivos) {
 		this.chatsActivos = chatsActivos;
 	}

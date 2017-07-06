@@ -34,11 +34,11 @@ public class EstadoJuego extends Estado {
 	private Map<Integer, PaquetePersonaje> personajesConectados;
 	private boolean haySolicitud;
 	private int tipoSolicitud;
-	
+
 	private final Gson gson = new Gson();
-	
+
 	private BufferedImage miniaturaPersonaje;
-	
+
 	MenuInfoPersonaje menuEnemigo;
 
 	public EstadoJuego(Juego juego) {
@@ -59,7 +59,7 @@ public class EstadoJuego extends Estado {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void actualizar() {
 		mundo.actualizar();
@@ -78,13 +78,13 @@ public class EstadoJuego extends Estado {
 		EstadoDePersonaje.dibujarEstadoDePersonaje(g, 5, 5, paquetePersonaje, miniaturaPersonaje);
 		if(haySolicitud)
 			menuEnemigo.graficar(g, tipoSolicitud);
-			
+
 	}
 
 	public void graficarPersonajes(Graphics g) {
-		
+
 		Map<Integer, PaquetePersonaje> personajesConectados = juego.getPersonajesConectados();
-		
+
 		if(personajesConectados != null){
 			personajesConectados = new HashMap<Integer, PaquetePersonaje>(personajesConectados);
 			ubicacionPersonajes = new HashMap<Integer, PaqueteMovimiento>(juego.getUbicacionPersonajes());
@@ -103,11 +103,11 @@ public class EstadoJuego extends Estado {
 			}
 		}
 	}
-	
+
 	public Entidad getPersonaje() {
 		return entidadPersonaje;
 	}
-	
+
 	private String getMundo() {
 		int mundo = juego.getPersonaje().getMapa();
 
@@ -121,22 +121,22 @@ public class EstadoJuego extends Estado {
 
 		return null;
 	}
-	
+
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {
 		haySolicitud = b;
 		// menu que mostrara al enemigo
 		menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
 		this.tipoSolicitud = tipoSolicitud;
 	}
-	
+
 	public boolean getHaySolicitud() {
 		return haySolicitud;
 	}
-	
+
 	public void actualizarPersonaje() {
 		paquetePersonaje = juego.getPersonaje();
 	}
-	
+
 	public MenuInfoPersonaje getMenuEnemigo(){
 		return menuEnemigo;
 	}
@@ -144,7 +144,7 @@ public class EstadoJuego extends Estado {
 	public int getTipoSolicitud() {
 		return tipoSolicitud;
 	}
-	
+
 	@Override
 	public boolean estaJugando() {
 		return false;

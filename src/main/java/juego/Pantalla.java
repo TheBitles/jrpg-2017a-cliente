@@ -80,7 +80,7 @@ public class Pantalla {
 				}
 				
 				if (KeyEvent.VK_M == e.getKeyCode()) {
-					MenuMercado.getInstance().dibujar(cliente.getPaquetePersonaje(), pantalla.getLocation());
+					MenuMercado.getInstance().dibujar(cliente.getJuego(), cliente.getPaquetePersonaje(), pantalla.getLocation());
 				}
 			}
 		});

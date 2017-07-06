@@ -6,7 +6,7 @@ import cliente.Cliente;
 import juego.Juego;
 
 public abstract class Comando {
-	
+
 	public static final int CONEXION = 0;
 	public static final int CREACIONPJ = 1;
 	public static final int DESCONECTAR = 2;
@@ -21,6 +21,7 @@ public abstract class Comando {
 	public static final int ACTUALIZARPERSONAJE = 11;
 	public static final int ACTUALIZARINVENTARIO = 12;
 	public static final int CONVERSAR = 13;
+	public static final int INTERCAMBIO = 14;
 
 	public static final String[] COMANDOS = {
 			"Conexion",
@@ -37,11 +38,12 @@ public abstract class Comando {
 			"ActualizarPersonaje",
 			"ActualizarInventario",
 			"Conversar",
+			"Intercambio"
 	};
-	
-	protected String objetoLeido;
-	protected final Gson gson = new Gson();
-	
+
+	public String objetoLeido;
+	public final Gson gson = new Gson();
+
 	public void setObjetoLeido(final String objetoLeido) {
 		this.objetoLeido = objetoLeido;
 	}
