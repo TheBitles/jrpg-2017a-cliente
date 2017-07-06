@@ -27,6 +27,8 @@ import recursos.Recursos;
 
 public class EstadoJuego extends Estado {
 
+	public static final int[][] CORDSMERCADO = new int[][] { { 127, 223 }, { 159, 208 }, { 192, 192 }, { 224, 208 }, { 192, 224 }, { 160, 240 }, { 192, 256 }, { 224, 240 }, { 256, 224 } };
+	
 	private Entidad entidadPersonaje;
 	private PaquetePersonaje paquetePersonaje;
 	private Mundo mundo;
@@ -36,7 +38,7 @@ public class EstadoJuego extends Estado {
 	private int tipoSolicitud;
 
 	private final Gson gson = new Gson();
-	
+
 	private BufferedImage miniaturaPersonaje;
 
 	MenuInfoPersonaje menuEnemigo;
@@ -68,17 +70,7 @@ public class EstadoJuego extends Estado {
 
 	@Override
 	public void graficar(Graphics g) {
-		
-		g.setColor(Color.WHITE);
-		g.drawOval(120, 156, 50, 50);
-		g.fillOval(120, 156, 50, 50);
-		
 		g.drawImage(Recursos.background, 0, 0, juego.getAncho(), juego.getAlto(), null);
-		
-		g.setColor(Color.WHITE);
-		g.drawOval(120, 156, 50, 50);
-		g.fillOval(120, 156, 50, 50);
-		
 		mundo.graficar(g);
 		//entidadPersonaje.graficar(g);
 		graficarPersonajes(g);
@@ -131,24 +123,39 @@ public class EstadoJuego extends Estado {
 
 		return null;
 	}
-	
-	public boolean estaEnMercado() {
-		Float x = entidadPersonaje.getX();
-		Float y = entidadPersonaje.getY();
 
-		for(int[] posicion : Mundo.CORDSMERCADO) {
-			if( x.intValue() == posicion[0] && y.intValue() == posicion[1] ) {
+	public boolean estaEnMercado(PaqueteMovimiento movimiento) {
+		int x = (int) movimiento.getPosX();
+		int y = (int) movimiento.getPosY();
+		
+		boolean enX;
+		boolean enY;
+		for(int[] p : CORDSMERCADO) {
+			enX = x < p[0] + 5 && x > p[0] - 5;
+			enY = y < p[1] + 5 && y > p[1] - 5;
+			if(enX && enY) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {
 		haySolicitud = b;
+		
+		boolean estanDeMercadeo = false;
+		
+		if( enemigo != null ) {
+    		PaqueteMovimiento posicionEnemigo = juego.getUbicacionPersonajes().get(enemigo.getId());
+    		PaqueteMovimiento posicionPersonaje = juego.getUbicacionPersonajes().get(paquetePersonaje.getId());
+    		estanDeMercadeo = estaEnMercado(posicionEnemigo) || estaEnMercado(posicionPersonaje);
+		}
+		
 		// menu que mostrara al enemigo
 		menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
+		menuEnemigo.setEstanDeMercadeo(estanDeMercadeo);
+
 		this.tipoSolicitud = tipoSolicitud;
 	}
 

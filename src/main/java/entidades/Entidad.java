@@ -22,6 +22,7 @@ import mundo.Nodo;
 import recursos.Recursos;
 import entidades.Animacion;
 import estados.Estado;
+import frames.Chat;
 import interfaz.MenuInfoPersonaje;
 
 public class Entidad {
@@ -166,10 +167,20 @@ public class Entidad {
 								juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
 							} catch (IOException e) {
 								JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
-								e.printStackTrace();
 							}
 						} else {
 							juego.getEstadoJuego().setHaySolicitud(false, null, 0);
+						}
+
+
+					} else if (juego.getEstadoJuego().getMenuEnemigo().clickEnConversar(posMouse[0], posMouse[1])) {
+						juego.getEstadoJuego().setHaySolicitud(false, null, 0);
+
+						String nombreSala = juego.getPersonajesConectados().get(idEnemigo).getNombre();
+
+						if(!juego.getChatsActivos().containsKey(nombreSala)) {
+							Chat chat = new Chat(juego, nombreSala);
+							chat.setVisible(true);
 						}
 
 

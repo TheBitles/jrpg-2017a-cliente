@@ -22,6 +22,8 @@ public class MenuInfoPersonaje {
 	public static final int menuPerderBatalla = 4;
 	private static final String [] leyendaBoton = {"Batallar", "Volver", "Aceptar", "Aceptar", "Aceptar"};
 
+	private boolean estanDeMercadeo;
+
 	private int x;
 	private int y;
 	private PaquetePersonaje personaje;
@@ -32,11 +34,15 @@ public class MenuInfoPersonaje {
 		this.personaje = personaje;
 	}
 
+	public void setEstanDeMercadeo(final boolean estan) {
+		this.estanDeMercadeo = estan;
+	}
+
 	public void graficar(Graphics g, int tipoMenu){
 
 		// dibujo el menu
 		g.drawImage(menu, x, y, null);
-		
+
 		// dibujo el personaje
 		g.drawImage(Recursos.personaje.get(personaje.getRaza()).get(6)[0], x + menu.getWidth() / 2  - anchoPersonaje / 2, y + 70, 128, 128, null);
 
@@ -64,12 +70,19 @@ public class MenuInfoPersonaje {
 			break;
 		}
 
-
-		// muestro los botones
+		// muestro el boton de chat
 		g.setFont(new Font("Book Antiqua", 1, 20));
-		g.drawImage(Recursos.botonMenu, x + 50, y + 380, 200, 25, null);
+		g.drawImage(Recursos.botonMenu, x + 50, y + 340, 200, 25, null);
 		g.setColor(Color.WHITE);
-		Pantalla.centerString(g, new Rectangle(x + 50, y + 380, 200, 25), leyendaBoton[tipoMenu]);
+		Pantalla.centerString(g, new Rectangle(x + 50, y + 340, 200, 25), "Conversar");
+
+		if(!estanDeMercadeo) {
+			// muestro los botones
+			g.setFont(new Font("Book Antiqua", 1, 20));
+			g.drawImage(Recursos.botonMenu, x + 50, y + 380, 200, 25, null);
+			g.setColor(Color.WHITE);
+			Pantalla.centerString(g, new Rectangle(x + 50, y + 380, 200, 25), leyendaBoton[tipoMenu]);
+		}
 	}
 
 	private void graficarMenuPerderBatalla(Graphics g) {
@@ -127,7 +140,12 @@ public class MenuInfoPersonaje {
 		g.drawString(personaje.getCasta(), x + 100, y + 260);
 		g.drawString(personaje.getNivel() + " ", x + 100, y + 290);
 		g.drawString(personaje.getExperiencia() + " / " + Personaje.tablaDeNiveles[personaje.getNivel() + 1], x + 150, y + 320);
+	}
 
+	public boolean clickEnConversar(int mouseX, int mouseY){
+		if(mouseX >= x + 50 && mouseX <= x + 250 && mouseY >= y + 340 && mouseY <= y + 355)
+			return true;
+		return false;
 	}
 
 	public boolean clickEnBoton(int mouseX, int mouseY){

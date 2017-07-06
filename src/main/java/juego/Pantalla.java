@@ -85,7 +85,7 @@ public class Pantalla {
 					menuChat.setVisible(true);
 				}
 
-				if ( cliente.getJuego().getEstadoJuego().estaEnMercado() && KeyEvent.VK_M == e.getKeyCode()) {
+				if (KeyEvent.VK_M == e.getKeyCode() && cliente.getJuego().getEstadoJuego().estaEnMercado(cliente.getJuego().getUbicacionPersonaje())) {
 					MenuMercado.getInstance().dibujar(cliente.getJuego(), cliente.getPaquetePersonaje(), pantalla);
 				}
 			}

@@ -27,7 +27,7 @@ public class MenuChat extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private PaqueteUsuario paqueteUsuario;
-	
+
 	private JPanel contentPane;
 	private static JList<String> list = new JList<String>();
 	private JTextField miNombre;
@@ -35,7 +35,7 @@ public class MenuChat extends JFrame {
 
 	private Juego juego;
 	private Cliente cliente;
-	
+
 	public MenuChat(final Juego juego) {
 		this.juego = juego;
 		this.cliente = juego.getCliente();
@@ -46,7 +46,7 @@ public class MenuChat extends JFrame {
 		setResizable(false);
 		setBounds(100, 100, 327, 335);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,22 +56,6 @@ public class MenuChat extends JFrame {
 		scrollPane.setBounds(10, 11, 299, 188);
 		contentPane.add(scrollPane);
 
-		list.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (arg0.getClickCount() == 2) {
-					if(list.getSelectedValue() != null) {
-						if(!juego.getChatsActivos().containsKey(list.getSelectedValue())) {
-							if (cliente != null) {
-								Chat chat = new Chat(juego, list.getSelectedValue());
-								chat.setVisible(true);
-							}
-						}
-					}
-				}
-			}
-		});
-		
 		miNombre = new JTextField();
 		miNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		miNombre.setEditable(false);
@@ -89,21 +73,21 @@ public class MenuChat extends JFrame {
 			}
 		}
 	}
-	
+
 	public PaqueteUsuario getPaqueteUsuario() {
 		return paqueteUsuario;
 	}
-	
+
 	public static JList<String> getList() {
 		return list;
 	}
 
-	
+
 	public static void setPersonajesConectados(Juego juego) {
 		Map<Integer, PaquetePersonaje> personajesConectados = juego.getPersonajesConectados();
 		Integer personajeId = juego.getPersonaje().getId();
 		DefaultListModel<String> modeloDeLista = new DefaultListModel<String>();
-		
+
 		for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
 			if( personajeId != personaje.getValue().getId() ) {
 				modeloDeLista.addElement(personaje.getValue().getNombre());

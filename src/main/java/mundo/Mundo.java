@@ -22,8 +22,6 @@ public class Mundo {
 	private int xMaximo;
 	private int yMinimo;
 	private int yMaximo;
-
-	public static final int[][] CORDSMERCADO = new int[][] { { 128, 224 }, { 160, 208 }, { 192, 192 }, { 224, 208 }, { 192, 224 }, { 160, 240 }, { 192, 256 }, { 224, 240 }, { 256, 224 } };
 	
 	private Grafo grafoDeTilesNoSolidos;
 
