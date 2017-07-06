@@ -19,7 +19,6 @@ class ItemViewOfertar extends ItemView {
             boton.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e) {
             		menuMercado.botonOfertarPresionado(index);
-            		boton.setVisible(false);
             	}
             });
     	}

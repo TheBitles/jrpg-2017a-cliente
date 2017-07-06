@@ -20,6 +20,8 @@ import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.ComandoConversar;
 import mensajeria.PaqueteMensaje;
+import java.awt.Color;
+import java.awt.Font;
 
 public class Chat extends JFrame {
 
@@ -45,9 +47,10 @@ public class Chat extends JFrame {
 		
 		setTitle(nombreSala);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 434, 300);
 		setResizable(false);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.PINK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -58,10 +61,12 @@ public class Chat extends JFrame {
 		contentPane.add(scrollPane);
 		
 		chat = new JTextArea();
+		chat.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 13));
 		chat.setEditable(false);
 		scrollPane.setViewportView(chat);
 		
 		texto = new JTextField();
+		texto.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 15));
 		this.addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
 				texto.requestFocus();
@@ -82,7 +87,7 @@ public class Chat extends JFrame {
 			}
 		});
 
-		texto.setBounds(10, 223, 314, 27);
+		texto.setBounds(10, 223, 414, 49);
 		contentPane.add(texto);
 		texto.setColumns(10);
 	}
