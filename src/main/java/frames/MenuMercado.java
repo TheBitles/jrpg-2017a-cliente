@@ -285,7 +285,7 @@ public class MenuMercado extends JFrame {
 		panelIntercambioDemanda.remove(panelIntercambioDemanda.getComponent(index));
 		ItemViewEliminarDemanda a = new ItemViewEliminarDemanda(null, index, this);
 		panelIntercambioDemanda.add(a, null, index);
-		panelIntercambioDemanda.revalidate();;
+		panelIntercambioDemanda.revalidate();
 
 		intercambiables.get(index).setDemanda(null);
 		repaint();
@@ -309,7 +309,33 @@ public class MenuMercado extends JFrame {
 		}
 	}
 	
-	public void actualizar(final PaqueteIntercambio paqueteIntercambio) {
-		//paqueteIntercambio
+	public void actualizar(final Integer index) {
+		ItemView panel = (ItemView) panelIntercambioDemanda.getComponent(index);
+		Item item = panel.getItem();
+
+		int menorIndiceVacio = getMenorIndiceOferta();
+
+		if(menorIndiceVacio != -1) {
+    		panelIntercambioDemanda.remove(panelIntercambioDemanda.getComponent(index));
+    		ItemViewEliminarDemanda a = new ItemViewEliminarDemanda(null, index, this);
+    		panelIntercambioDemanda.add(a, null, index);
+    		panelIntercambioDemanda.revalidate();
+    		
+    		panelIntercambioOferta.remove(panelIntercambioOferta.getComponent(index));
+    		ItemViewEliminarOferta b = new ItemViewEliminarOferta(null, index, this);
+    		panelIntercambioOferta.add(b, null, index);
+    		panelIntercambioOferta.revalidate();
+
+    		panelOferta.remove(panelOferta.getComponent(menorIndiceVacio));
+    		ItemViewOfertar iveo = new ItemViewOfertar(item, menorIndiceVacio, this);
+    		panelOferta.add(iveo, null, menorIndiceVacio);
+    		panelOferta.revalidate();
+
+    		intercambiables.get(index).setOferta(null);
+    		intercambiables.get(index).setDemanda(null);
+
+    		repaint();
+		}
+
 	}
 }

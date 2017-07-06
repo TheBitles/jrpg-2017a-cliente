@@ -6,16 +6,17 @@ import java.util.ArrayList;
 public class PaqueteIntercambio extends Paquete implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Integer> intercambios;
+	private Integer intercambio;
 
-	public PaqueteIntercambio(){
+	public PaqueteIntercambio() {
+		setComando(Comando.INTERCAMBIO);
 	}
 
-  public ArrayList<Integer> getIntercambiados() {
-		return intercambios;
+  public Integer getIntercambio() {
+		return intercambio;
 	}
 
-	public void setIntercambiados(ArrayList<Integer> intercambios) {
-		this.intercambios = intercambios;
+	public void setIntercambio(Integer intercambio) {
+		this.intercambio = intercambio;
 	}
 }
