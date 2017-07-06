@@ -26,7 +26,8 @@ public class ComandoConversar extends ComandoCliente {
 		}
 
 		if (!(chatsActivos.containsKey(objetivo))) {
-			new Chat(juego, objetivo);
+			Chat chat = new Chat(juego, objetivo);
+			chat.setVisible(true);
 		}
 
 		chatsActivos.get(objetivo).getChat().append(emisor + ": " + contenido + "\n");

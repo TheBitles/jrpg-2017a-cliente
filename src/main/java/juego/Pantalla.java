@@ -79,6 +79,12 @@ public class Pantalla {
 					chat.setVisible(true);
 				}
 				
+				if (KeyEvent.VK_L == e.getKeyCode()) {
+					MenuChat menuChat = new MenuChat(cliente.getJuego());
+					menuChat.setLocation((int)(pantalla.getLocation().getX() - 100), ((int) pantalla.getLocation().getY()));
+					menuChat.setVisible(true);
+				}
+				
 				if (KeyEvent.VK_M == e.getKeyCode()) {
 					MenuMercado.getInstance().dibujar(cliente.getJuego(), cliente.getPaquetePersonaje(), pantalla.getLocation());
 				}

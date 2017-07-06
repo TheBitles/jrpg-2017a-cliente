@@ -65,25 +65,12 @@ public class MenuChat extends JFrame {
 							if (cliente != null) {
 								Chat chat = new Chat(juego, list.getSelectedValue());
 								chat.setVisible(true);
-							}	
+							}
 						}
 					}
 				}
 			}
 		});
-
-		botonChatPublico = new JButton(ComandoConversar.NOMBRESALA);
-		botonChatPublico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!juego.getChatsActivos().containsKey(ComandoConversar.NOMBRESALA)) {
-					Chat chat = new Chat(juego, ComandoConversar.NOMBRESALA);
-					chat.setVisible(true);
-				}
-			}
-		});
-
-		botonChatPublico.setBounds(220, 264, 89, 23);
-		contentPane.add(botonChatPublico);
 		
 		miNombre = new JTextField();
 		miNombre.setHorizontalAlignment(SwingConstants.LEFT);
@@ -93,10 +80,6 @@ public class MenuChat extends JFrame {
 		miNombre.setColumns(10);
 
 		scrollPane.setViewportView(list);
-
-		JLabel label = new JLabel("");
-		label.setBounds(130, 267, 56, 16);
-		contentPane.add(label);
 	}
 
 	private void actualizarLista() {
@@ -114,10 +97,7 @@ public class MenuChat extends JFrame {
 	public static JList<String> getList() {
 		return list;
 	}
-	
-	public static JButton getBotonChatPublico() {
-		return botonChatPublico;
-	}
+
 	
 	public static void setPersonajesConectados(Juego juego) {
 		Map<Integer, PaquetePersonaje> personajesConectados = juego.getPersonajesConectados();
