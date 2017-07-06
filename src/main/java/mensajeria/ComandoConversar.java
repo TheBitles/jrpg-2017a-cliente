@@ -7,7 +7,7 @@ import mensajeria.PaqueteMensaje;
 public class ComandoConversar extends ComandoCliente {
 
 	public final static String NOMBRESALA = "Chat General";
-	
+
 	@Override
 	public void procesar() {
 		juego.getCliente().setPaqueteMensaje((PaqueteMensaje) gson.fromJson(objetoLeido, PaqueteMensaje.class));
@@ -19,11 +19,6 @@ public class ComandoConversar extends ComandoCliente {
 		String receptor = pm.getReceptor();
 		String contenido = pm.getContenido();
 		String objetivo = receptor == null ? NOMBRESALA : emisor;
-
-		System.out.println(pm.toString() + ":objetivo: " + objetivo);
-		for(Map.Entry<String, Chat> c : chatsActivos.entrySet()) {
-			System.out.println(c.getKey());
-		}
 
 		if (!(chatsActivos.containsKey(objetivo))) {
 			Chat chat = new Chat(juego, objetivo);
