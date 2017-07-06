@@ -2,6 +2,10 @@ package frames;
 
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,6 +20,8 @@ import dominio.Intercambiable;
 import dominio.Item;
 import dominio.Personaje;
 import juego.Juego;
+import juego.Pantalla;
+import mensajeria.ComandoConversar;
 import mensajeria.PaqueteIntercambiable;
 import mensajeria.PaqueteIntercambio;
 import mensajeria.PaquetePersonaje;
@@ -29,6 +35,7 @@ public class MenuMercado extends JFrame {
 
 	private PaquetePersonaje personaje;
 	private Juego juego = null;
+	private JFrame pantalla;
 
 	private JPanel panelOferta;
 	private JPanel panelIntercambioOferta;
@@ -61,13 +68,21 @@ public class MenuMercado extends JFrame {
 		for(int i = 0; i < Personaje.MAX_ITEMS/2; i++) {
 			intercambiables.add(new Intercambiable());
 		}
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				pantalla.setVisible(true);
+			}
+		});
 	}
 	
-	public void dibujar(final Juego juego, final PaquetePersonaje personaje, final Point location) {
+	public void dibujar(final Juego juego, final PaquetePersonaje personaje, final JFrame pantalla) {
 		if( this.juego == null ) {
     		this.juego = juego;
+    		this.pantalla = pantalla;
     		this.personaje = personaje;
-    		setLocation(location);
+    		setLocation(pantalla.getLocation());
     
     		panelOferta = nuevoPanel(0, 2);
     		panelIntercambioOferta = nuevoPanel(250, 1);
@@ -84,6 +99,7 @@ public class MenuMercado extends JFrame {
     		add(panelDemanda);
 		}
 		
+		pantalla.setVisible(false);
 		setVisible(true);
 	}
 

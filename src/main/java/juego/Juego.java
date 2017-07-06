@@ -176,7 +176,7 @@ public class Juego implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public int getAncho() {
 		return ANCHO;
 	}

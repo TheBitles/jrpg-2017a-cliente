@@ -36,7 +36,7 @@ public class EstadoJuego extends Estado {
 	private int tipoSolicitud;
 
 	private final Gson gson = new Gson();
-
+	
 	private BufferedImage miniaturaPersonaje;
 
 	MenuInfoPersonaje menuEnemigo;
@@ -68,7 +68,17 @@ public class EstadoJuego extends Estado {
 
 	@Override
 	public void graficar(Graphics g) {
+		
+		g.setColor(Color.WHITE);
+		g.drawOval(120, 156, 50, 50);
+		g.fillOval(120, 156, 50, 50);
+		
 		g.drawImage(Recursos.background, 0, 0, juego.getAncho(), juego.getAlto(), null);
+		
+		g.setColor(Color.WHITE);
+		g.drawOval(120, 156, 50, 50);
+		g.fillOval(120, 156, 50, 50);
+		
 		mundo.graficar(g);
 		//entidadPersonaje.graficar(g);
 		graficarPersonajes(g);
@@ -120,6 +130,19 @@ public class EstadoJuego extends Estado {
 		}
 
 		return null;
+	}
+	
+	public boolean estaEnMercado() {
+		Float x = entidadPersonaje.getX();
+		Float y = entidadPersonaje.getY();
+
+		for(int[] posicion : Mundo.CORDSMERCADO) {
+			if( x.intValue() == posicion[0] && y.intValue() == posicion[1] ) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {

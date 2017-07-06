@@ -36,7 +36,7 @@ public class MenuInfoPersonaje {
 
 		// dibujo el menu
 		g.drawImage(menu, x, y, null);
-
+		
 		// dibujo el personaje
 		g.drawImage(Recursos.personaje.get(personaje.getRaza()).get(6)[0], x + menu.getWidth() / 2  - anchoPersonaje / 2, y + 70, 128, 128, null);
 
