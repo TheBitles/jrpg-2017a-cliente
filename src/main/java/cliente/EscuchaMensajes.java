@@ -36,21 +36,20 @@ public class EscuchaMensajes extends Thread {
 
 		juego.setPersonajesConectados(new HashMap<Integer, PaquetePersonaje>());
 		juego.setUbicacionPersonajes(new HashMap<Integer, PaqueteMovimiento>());
-		
-		try {
 
 			while (true) {
-				String objetoLeido = (String) entrada.readObject();
-				paquete = gson.fromJson(objetoLeido , Paquete.class);
 
-				comando = (ComandoCliente) paquete.getByReflection("mensajeria");
-				comando.setJuego(juego);
-				comando.setObjetoLeido(objetoLeido);
-				comando.procesar();
+				try {
+					String objetoLeido = (String) entrada.readObject();
+					paquete = gson.fromJson(objetoLeido , Paquete.class);
+
+					comando = (ComandoCliente) paquete.getByReflection("mensajeria");
+					comando.setJuego(juego);
+					comando.setObjetoLeido(objetoLeido);
+					comando.procesar();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Error al intentar leer la entrada");
+				}
 			}
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al intentar leer la entrada");
-		}
 	}
 }
