@@ -103,6 +103,10 @@ public class MenuInventario extends JFrame {
 
 		redibujar();
 	}
+	
+	public void setCliente(final Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public void enviarDatos() {
 		synchronized(cliente){

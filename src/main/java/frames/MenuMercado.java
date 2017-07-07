@@ -356,6 +356,8 @@ public class MenuMercado extends JFrame {
 
 		personaje.getInventario().remove(menorIndiceVacio);
 		personaje.getInventario().add(item);
+
+		MenuInventario.getInstance().setCliente(juego.getCliente());
 		MenuInventario.getInstance().enviarDatos();
 	}
 }
