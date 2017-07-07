@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -43,7 +44,7 @@ public class MenuMercado extends JFrame {
 	private JPanel panelIntercambioFlecha;
 	private JPanel panelIntercambioDemanda;
 	private JPanel panelDemanda;
-	
+
 	private final Gson gson = new Gson();
 
 	private ArrayList<Intercambiable> intercambiables = new ArrayList<Intercambiable>(Personaje.MAX_ITEMS/2);
@@ -69,7 +70,7 @@ public class MenuMercado extends JFrame {
 		for(int i = 0; i < Personaje.MAX_ITEMS/2; i++) {
 			intercambiables.add(new Intercambiable());
 		}
-		
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
@@ -77,29 +78,29 @@ public class MenuMercado extends JFrame {
 			}
 		});
 	}
-	
+
 	public void dibujar(final Juego juego, final PaquetePersonaje personaje, final JFrame pantalla) {
 		if( this.juego == null ) {
     		this.juego = juego;
     		this.pantalla = pantalla;
     		this.personaje = personaje;
     		setLocation(pantalla.getLocation());
-    
+
     		panelOferta = nuevoPanel(0, 2);
     		panelIntercambioOferta = nuevoPanel(250, 1);
     		panelIntercambioFlecha = nuevoPanel(350, 1);
     		panelIntercambioDemanda = nuevoPanel(450, 1);
     		panelDemanda = nuevoPanel(600, 2);
-    
+
     		redibujar();
-    
+
     		add(panelOferta);
     		add(panelIntercambioOferta);
     		add(panelIntercambioFlecha);
     		add(panelIntercambioDemanda);
     		add(panelDemanda);
 		}
-		
+
 		pantalla.setVisible(false);
 		setVisible(true);
 	}
@@ -321,11 +322,10 @@ public class MenuMercado extends JFrame {
 		try {
 			juego.getCliente().getSalida().writeObject(gson.toJson(paqueteIntercambiable, PaqueteIntercambiable.class));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Fallo la conexion con el servidor al intercambiar items.");
 		}
 	}
-	
+
 	public void actualizar(final Integer index) {
 		ItemView panel = (ItemView) panelIntercambioDemanda.getComponent(index);
 		Item item = panel.getItem();
@@ -337,7 +337,7 @@ public class MenuMercado extends JFrame {
     		ItemViewEliminarDemanda a = new ItemViewEliminarDemanda(null, index, this);
     		panelIntercambioDemanda.add(a, null, index);
     		panelIntercambioDemanda.revalidate();
-    		
+
     		panelIntercambioOferta.remove(panelIntercambioOferta.getComponent(index));
     		ItemViewEliminarOferta b = new ItemViewEliminarOferta(null, index, this);
     		panelIntercambioOferta.add(b, null, index);
@@ -353,7 +353,7 @@ public class MenuMercado extends JFrame {
 
     		repaint();
 		}
-		
+
 		personaje.getInventario().remove(menorIndiceVacio);
 		personaje.getInventario().add(item);
 		MenuInventario.getInstance().enviarDatos();

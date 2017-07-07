@@ -173,10 +173,9 @@ public class Juego implements Runnable {
 			hilo.join();
 		} catch (InterruptedException e) {
 			JOptionPane.showMessageDialog(null, "Fallo al intentar detener el juego.");
-			e.printStackTrace();
 		}
 	}
-	
+
 	public int getAncho() {
 		return ANCHO;
 	}

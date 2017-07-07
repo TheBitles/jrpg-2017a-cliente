@@ -2,6 +2,8 @@ package mensajeria;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import mensajeria.Comando;
 import mensajeria.Paquete;
 
@@ -15,10 +17,9 @@ public class ComandoSalir extends ComandoCliente {
 			cliente.getSalida().writeObject(gson.toJson(new Paquete(Comando.DESCONECTAR), Paquete.class));
 			cliente.getSocket().close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Fallo al desconectar la aplicacion.");
 		}
-		
+
 	}
 
 }

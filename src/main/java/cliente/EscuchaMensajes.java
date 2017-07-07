@@ -3,6 +3,8 @@ package cliente;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import com.google.gson.Gson;
 
 import juego.Juego;
@@ -17,7 +19,7 @@ public class EscuchaMensajes extends Thread {
 
 	private ObjectInputStream entrada;
 	private Juego juego;
-	private Cliente cliente;	
+	private Cliente cliente;
 	private final Gson gson = new Gson();
 
 	public EscuchaMensajes(final Juego juego) {
@@ -29,12 +31,13 @@ public class EscuchaMensajes extends Thread {
 	@Override
 	public void run() {
 
-		try {
-			Paquete paquete;
-			ComandoCliente comando;
+		Paquete paquete;
+		ComandoCliente comando;
 
-			juego.setPersonajesConectados(new HashMap<Integer, PaquetePersonaje>());
-			juego.setUbicacionPersonajes(new HashMap<Integer, PaqueteMovimiento>());
+		juego.setPersonajesConectados(new HashMap<Integer, PaquetePersonaje>());
+		juego.setUbicacionPersonajes(new HashMap<Integer, PaqueteMovimiento>());
+		
+		try {
 
 			while (true) {
 				String objetoLeido = (String) entrada.readObject();
@@ -47,7 +50,7 @@ public class EscuchaMensajes extends Thread {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error al intentar leer la entrada");
 		}
 	}
 }

@@ -19,11 +19,10 @@ public class Utilitarias {
 			while ((linea = br.readLine()) != null) {
 				builder.append(linea + System.lineSeparator());
 			}
-			
+
 			br.close();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo al intentar cargar el mapa " + path );
-			e.printStackTrace();
 		}
 
 		return builder.toString();
@@ -33,7 +32,6 @@ public class Utilitarias {
 		try {
 			return Integer.parseInt(numero);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
 			return 0;
 		}
 	}

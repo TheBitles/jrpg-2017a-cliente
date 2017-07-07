@@ -28,7 +28,7 @@ import recursos.Recursos;
 public class EstadoJuego extends Estado {
 
 	public static final int[][] CORDSMERCADO = new int[][] { { 127, 223 }, { 159, 208 }, { 192, 192 }, { 224, 208 }, { 192, 224 }, { 160, 240 }, { 192, 256 }, { 224, 240 }, { 256, 224 } };
-	
+
 	private Entidad entidadPersonaje;
 	private PaquetePersonaje paquetePersonaje;
 	private Mundo mundo;
@@ -58,7 +58,6 @@ public class EstadoJuego extends Estado {
 			juego.getCliente().getSalida().writeObject(gson.toJson(juego.getUbicacionPersonaje(), PaqueteMovimiento.class));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor al ingresar al mundo.");
-			e.printStackTrace();
 		}
 	}
 
@@ -127,7 +126,7 @@ public class EstadoJuego extends Estado {
 	public boolean estaEnMercado(PaqueteMovimiento movimiento) {
 		int x = (int) movimiento.getPosX();
 		int y = (int) movimiento.getPosY();
-		
+
 		boolean enX;
 		boolean enY;
 		for(int[] p : CORDSMERCADO) {
@@ -143,15 +142,15 @@ public class EstadoJuego extends Estado {
 
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {
 		haySolicitud = b;
-		
+
 		boolean estanDeMercadeo = false;
-		
+
 		if( enemigo != null ) {
     		PaqueteMovimiento posicionEnemigo = juego.getUbicacionPersonajes().get(enemigo.getId());
     		PaqueteMovimiento posicionPersonaje = juego.getUbicacionPersonajes().get(paquetePersonaje.getId());
     		estanDeMercadeo = estaEnMercado(posicionEnemigo) || estaEnMercado(posicionPersonaje);
 		}
-		
+
 		// menu que mostrara al enemigo
 		menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);
 		menuEnemigo.setEstanDeMercadeo(estanDeMercadeo);

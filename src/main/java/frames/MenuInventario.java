@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -26,34 +27,34 @@ public class MenuInventario extends JFrame {
 	private JPanel contentPane;
 
 	private static MenuInventario instancia = null;
-	
+
 	private Juego juego;
 	private Cliente cliente;
 	private Point location;
 	private PaquetePersonaje personaje;
-	
+
 	private final Gson gson = new Gson();
-	
+
 	public static MenuInventario getInstance() {
 		if(instancia == null) {
 			instancia = new MenuInventario();
 		}
 		return instancia;
 	}
-	
+
 	public MenuInventario() {
 		setTitle("Inventario");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 400, 550);
 		setResizable(false);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0,4));
-		
-		
+
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -62,21 +63,21 @@ public class MenuInventario extends JFrame {
 		});
 
 	}
-	
+
 	public void dibujar(final Juego juego, final PaquetePersonaje personaje, final Point location) {
 		this.juego = juego;
 		this.cliente = juego.getCliente();
 		this.personaje = personaje;
 		this.location = location;
-		
+
 		redibujar();
 	}
-	
+
 	public void redibujar() {
 		setLocation(location);
 
 		contentPane.removeAll();
-		
+
 		ArrayList<Item> items = personaje.getInventario();
 
 		ItemViewSoltar view;
@@ -96,13 +97,13 @@ public class MenuInventario extends JFrame {
 
 		setVisible(true);
 	}
-	
+
 	public void botonSoltarPresionado(final int index) {
 		personaje.getInventario().remove(index);
-		
+
 		redibujar();
 	}
-	
+
 	public void enviarDatos() {
 		synchronized(cliente){
 			PaqueteInventario paqueteInventario = new PaqueteInventario();
@@ -112,7 +113,7 @@ public class MenuInventario extends JFrame {
 			try {
 				cliente.getSalida().writeObject(gson.toJson(paqueteInventario));
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Fallo la conexion con el servidor al actualizar el inventario");
 			}
 		}
 	}

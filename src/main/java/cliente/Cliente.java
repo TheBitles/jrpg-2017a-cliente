@@ -34,7 +34,7 @@ public class Cliente extends Thread {
 	private PaqueteUsuario paqueteUsuario;
 	private PaquetePersonaje paquetePersonaje;
 	private PaqueteMensaje paqueteMensaje = new PaqueteMensaje();
-	
+
 	// Acciones que realiza el usuario
 	private int accion;
 
@@ -63,17 +63,20 @@ public class Cliente extends Thread {
 			puerto = sc.nextInt();
 			sc.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error al intentar leer el archivo config.txt");
+			System.exit(1);
 		}
 
 		try {
 			cliente = new Socket(ip, puerto);
 			miIp = cliente.getInetAddress().getHostAddress();
 			entrada = new ObjectInputStream(cliente.getInputStream());
-			salida = new ObjectOutputStream(cliente.getOutputStream());
+            salida = new ObjectOutputStream(cliente.getOutputStream());
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error al intentar crear el socket para " + ip + ":" + puerto);
+			System.exit(1);
 		}
+
 	}
 
 	public void run() {
@@ -84,9 +87,9 @@ public class Cliente extends Thread {
 				paqueteUsuario = new PaqueteUsuario();
 
 				ComandoCliente comando;
-				
+
 				MenuJugar menuJugar = null;
-				
+
 				while (!paqueteUsuario.isInicioSesion()) {
 
 					if(menuJugar == null){
@@ -95,19 +98,19 @@ public class Cliente extends Thread {
 
     					paqueteUsuario = new PaqueteUsuario();
     					paquetePersonaje = new PaquetePersonaje();
-    
+
     					// Espero a que el usuario seleccione alguna accion
     					wait();
-    
+
     					paqueteUsuario.setComando(getAccion());
-    
+
     					if( paqueteUsuario.getComando() == Comando.SALIR ) {
     						paqueteUsuario.setIp(getMiIp());
     					}
-    					
+
     					// Le envio el paquete al servidor
     					salida.writeObject(gson.toJson(paqueteUsuario));
-    					
+
 					}
 
 					// Recibo el paquete desde el servidor
@@ -156,7 +159,6 @@ public class Cliente extends Thread {
 			} catch (IOException | InterruptedException | ClassNotFoundException e) {
 				JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor durante el inicio de sesión.");
 				System.exit(1);
-				e.printStackTrace();
 			}
 		}
 
@@ -209,7 +211,7 @@ public class Cliente extends Thread {
 	public MenuCarga getMenuCarga() {
 		return menuCarga;
 	}
-	
+
 	public PaqueteMensaje getPaqueteMensaje() {
 		return paqueteMensaje;
 	}
@@ -219,15 +221,15 @@ public class Cliente extends Thread {
 		this.paqueteMensaje.setEmisor(fromJson.getEmisor());
 		this.paqueteMensaje.setReceptor(fromJson.getReceptor());
 	}
-	
+
 	public void setPaquetePersonaje(PaquetePersonaje paquetePersonaje) {
 		this.paquetePersonaje = paquetePersonaje;
 	}
-	
+
 	public void setItems(PaquetePersonaje nuevoPP) {
 		int cantVieja = this.paquetePersonaje.getInventario().size();
 		int cantNueva = nuevoPP.getInventario().size();
-		
+
 		if(cantVieja < cantNueva) {
 			this.paquetePersonaje.agregarItem(nuevoPP.getInventario().get(cantNueva - 1));
 		}

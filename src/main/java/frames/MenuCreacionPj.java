@@ -26,11 +26,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 
 public class MenuCreacionPj extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8460933114073267513L;
 	private JPanel contentPane;
@@ -40,18 +41,18 @@ public class MenuCreacionPj extends JFrame {
 	private JLabel inteligencia;
 	private JLabel salud;
 	private JLabel energia;
-	
+
 	private final Gson gson = new Gson();
 
 	private JComboBox<String> cbxCasta;
 	private JComboBox<String> cbxRaza;
 
 	public MenuCreacionPj(final Cliente cliente, final PaquetePersonaje personaje) {
-		
+
 		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
 				new ImageIcon(MenuJugar.class.getResource("/cursor.png")).getImage(),
 				new Point(0,0),"custom cursor"));
-		
+
 		final String vecSalud[] = { "55", "50", "60" };
 		final String vecEnergia[] = { "55", "60", "50" };
 		final String vecFuerza[] = { "15", "10", "10" };
@@ -72,10 +73,10 @@ public class MenuCreacionPj extends JFrame {
 				personaje.setFuerza(Integer.parseInt(vecFuerza[cbxCasta.getSelectedIndex()]));
 				personaje.setDestreza(Integer.parseInt(vecDestreza[cbxCasta.getSelectedIndex()]));
 				personaje.setInteligencia(Integer.parseInt(vecInteligencia[cbxCasta.getSelectedIndex()]));
-				
+
 
 				enviarDatos(cliente);
-				
+
 				dispose();
 			}
 		});
@@ -172,7 +173,7 @@ public class MenuCreacionPj extends JFrame {
 		layeredPane.add(btnAceptar, new Integer(1));
 		btnAceptar.setFocusable(false);
 		btnAceptar.setIcon(new ImageIcon(MenuCreacionPj.class.getResource("/frames/BotonMenu.png")));
-		
+
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				personaje.setNombre(nombre.getText());
@@ -185,13 +186,13 @@ public class MenuCreacionPj extends JFrame {
 				personaje.setFuerza(Integer.parseInt(vecFuerza[cbxCasta.getSelectedIndex()]));
 				personaje.setDestreza(Integer.parseInt(vecDestreza[cbxCasta.getSelectedIndex()]));
 				personaje.setInteligencia(Integer.parseInt(vecInteligencia[cbxCasta.getSelectedIndex()]));
-				
+
 				enviarDatos(cliente);
 
 				dispose();
 			}
 		});
-		
+
 		JLabel lblNewLabel = new JLabel("Raza");
 		lblNewLabel.setBounds(33, 23, 46, 14);
 		layeredPane.add(lblNewLabel, new Integer(1));
@@ -230,7 +231,7 @@ public class MenuCreacionPj extends JFrame {
 		cbxRaza.addItem("Humano");
 		cbxRaza.addItem("Elfo");
 		cbxRaza.addItem("Orco");
-		
+
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setBounds(0, 0, 444, 271);
 		layeredPane.add(lblBackground, new Integer(0));
@@ -243,7 +244,7 @@ public class MenuCreacionPj extends JFrame {
 			cliente.getPaquetePersonaje().setComando(Comando.CREACIONPJ);
 			cliente.getSalida().writeObject(gson.toJson(cliente.getPaquetePersonaje()));
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Fallo la conexion con el servidor al crear el personaje.");
 		}
 	}
 

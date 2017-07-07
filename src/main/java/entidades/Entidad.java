@@ -422,7 +422,6 @@ public class Entidad {
 					.writeObject(gson.toJson(juego.getUbicacionPersonaje(), PaqueteMovimiento.class));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor.");
-			e.printStackTrace();
 		}
 	}
 
